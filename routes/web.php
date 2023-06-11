@@ -9,3 +9,7 @@ Route::get('/', function () {
 
 Route::get('/qrcode', [QrCodeController::class, 'index']);
 Route::get('/generate-qrcode', [QrCodeController::class, 'generateQrCode'])->name('generate.qrcode');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
