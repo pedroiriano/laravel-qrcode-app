@@ -16,8 +16,8 @@ class QrCodeController extends Controller
     {
         $image = \QrCode::format('png')->size(200)->errorCorrection('H')->generate('Pedro Iriano');
 
-        $output_image = '/public/img/qr-code/img-'.time().'.png';
-        Storage::disk('local')->put($output_image, $image);
+        $output_image = '/img/qr-code/img-'.time().'.png';
+        Storage::disk('public')->put($output_image, $image);
 
         return 'Success';
     }
