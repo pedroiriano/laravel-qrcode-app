@@ -21,6 +21,6 @@
         </style>
     </head>
     <body>
-        <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate('Pedro Iriano')) !!} ">
+        <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate('Pedro Iriano')) !!}">
     </body>
 </html>
