@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-start">
         @if (!empty($users))
             @foreach ($users as $user)    
                 <div class="col-md-4">
