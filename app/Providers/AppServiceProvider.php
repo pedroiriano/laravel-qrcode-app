@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
+use App\Models\User;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Schema::defaultStringLength(191);
+
+        $all_users = User::all();
+
+        $pages_data = array(
+            'all_users' => $all_users,
+            'title' => 'Selamat Datang di Aplikasi Pasar Depok',
+            'description' => 'Sistem Pendataan Kios dan Los di Pasar Depok'
+        );
+
+        View::share($pages_data);
     }
 }
