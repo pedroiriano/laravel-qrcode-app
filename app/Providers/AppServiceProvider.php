@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        $all_users = User::all();
+        $all_users = User::paginate(3);
 
         $pages_data = array(
             'all_users' => $all_users,

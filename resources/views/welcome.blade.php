@@ -22,5 +22,8 @@
                     @endforeach
                 @endif
             </div>
+            <div class="d-flex justify-content-center">
+                {{ $all_users->links('pagination::bootstrap-5') }}
+            </div>
         </div>
 @endsection
