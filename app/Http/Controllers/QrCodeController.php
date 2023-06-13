@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class QrCodeController extends Controller
 {
@@ -14,7 +15,7 @@ class QrCodeController extends Controller
 
     public function generateQrCode()
     {
-        $image = \QrCode::format('png')->size(200)->errorCorrection('H')->generate('Pedro Iriano');
+        $image = QrCode::format('png')->size(200)->errorCorrection('H')->generate('Pedro Iriano');
 
         $output_image = '/img/qr-code/img-'.time().'.png';
         Storage::disk('public')->put($output_image, $image);
