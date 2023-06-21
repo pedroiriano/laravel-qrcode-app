@@ -200,6 +200,11 @@ return [
          */
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
+        /**
+         * Dom PDF Plugin
+         */
+        Barryvdh\DomPDF\ServiceProvider::class,
+
     ],
 
     /*
@@ -219,6 +224,11 @@ return [
          * QR Code Plugin
          */
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+
+        /**
+         * Dom PDF Plugin
+         */
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ])->toArray(),
 
 ];
