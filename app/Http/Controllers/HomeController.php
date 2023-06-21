@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Barryvdh\DomPDF\Facade\PDF;
 
 class HomeController extends Controller
 {
@@ -26,10 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::all();
-        
-        $pdf = PDF::loadView('home', ['users' => $users]);
 
-        return $pdf->download('qr-code.pdf');
-        // return view('home', compact('users'));
+        return view('home', compact('users'));
     }
 }
