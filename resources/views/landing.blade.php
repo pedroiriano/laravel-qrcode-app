@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row justify-content-start">
                 @if (!empty($all_users))
-                    @foreach ($all_users as $user)    
+                    @foreach ($all_users as $user)
                         <div class="col-md-4">
                             <div class="card text-center mb-3">
                                 <div class="card-header">
