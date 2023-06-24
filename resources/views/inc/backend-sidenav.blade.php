@@ -25,49 +25,35 @@
                 <!-- Sidenav Accordion (Commodity)-->
                 <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseCommodities" aria-expanded="false" aria-controls="collapseCommodities">
                     <div class="nav-link-icon"><i data-feather="package"></i></div>
-                    Komoditas
+                    Retribusi
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseCommodities" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
                         <a class="nav-link" href="">
-                            Tabel Kategori
+                            Tabel Retribusi
                         </a>
                         @if (auth()->user()->role_id == 1)
                         <a class="nav-link" href="">
-                            Tambah Kategori
+                            Perbarui Retribusi
                         </a>
                         @endif
-                        <a class="nav-link" href="">
-                            Tabel Komoditas
-                        </a>
-                        @if (auth()->user()->role_id == 1)
-                        <a class="nav-link" href="">
-                            Tambah Komoditas
-                        </a>
-                        @endif
-                        <a class="nav-link" href="">
-                            Tabel Harga
-                        </a>
-                        <a class="nav-link" href="">
-                            Perbarui Harga
-                        </a>
                     </nav>
                 </div>
                 @if (auth()->user()->role_id == 1)
                 <!-- Sidenav Accordion (Region)-->
                 <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseRegions" aria-expanded="false" aria-controls="collapseRegions">
                     <div class="nav-link-icon"><i data-feather="map"></i></div>
-                    Wilayah
+                    Kios atau Los
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseRegions" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
                         <a class="nav-link" href="">
-                            Tabel Pasar
+                            Tabel Kios/Los
                         </a>
                         <a class="nav-link" href="">
-                            Tambah Pasar
+                            Tambah Kios/Los
                         </a>
                     </nav>
                 </div>
