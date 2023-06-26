@@ -27,7 +27,7 @@
 {{-- END::CSRF Token --}}
 
 {{-- BEGIN::Title --}}
-<title>{{ config('app.name', 'REWAS') }}</title>
+<title>{{ config('app.name', 'Retribusi Pasar') }}</title>
 {{-- END::Title --}}
 
 {{-- BEGIN::Data Tables --}}
