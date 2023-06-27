@@ -6,6 +6,7 @@ use App\Http\Controllers\BackendController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StallController;
+use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,3 +44,11 @@ Route::get('/stall/{stall}', [StallController::class, 'show'])->name('stall-show
 Route::get('/stall/{stall}/edit', [StallController::class, 'edit'])->name('stall-edit');
 Route::put('/stall/{stall}', [StallController::class, 'update'])->name('stall-update');
 Route::delete('/stall/{stall}', [StallController::class, 'destroy'])->name('stall-delete');
+
+Route::get('/merchant', [MerchantController::class, 'index'])->name('merchant');
+Route::get('/merchant/create', [MerchantController::class, 'create'])->name('merchant-form');
+Route::post('/merchant', [MerchantController::class, 'store'])->name('merchant-store');
+Route::get('/merchant/{merchant}', [MerchantController::class, 'show'])->name('merchant-show');
+Route::get('/merchant/{merchant}/edit', [MerchantController::class, 'edit'])->name('merchant-edit');
+Route::put('/merchant/{merchant}', [MerchantController::class, 'update'])->name('merchant-update');
+Route::delete('/merchant/{merchant}', [MerchantController::class, 'destroy'])->name('merchant-delete');

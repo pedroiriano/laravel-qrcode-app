@@ -41,13 +41,29 @@
                     </nav>
                 </div>
                 @if (auth()->user()->role_id == 1)
-                <!-- Sidenav Accordion (Region)-->
-                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseRegions" aria-expanded="false" aria-controls="collapseRegions">
+                <!-- Sidenav Accordion (Merchant)-->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseMerchants" aria-expanded="false" aria-controls="collapseMerchants">
+                    <div class="nav-link-icon"><i data-feather="briefcase"></i></div>
+                    Pedagang
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseMerchants" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion">
+                        <a class="nav-link" href="{{ route('merchant') }}">
+                            Tabel Pedagang
+                        </a>
+                        <a class="nav-link" href="{{ route('merchant-form') }}">
+                            Tambah Pedagang
+                        </a>
+                    </nav>
+                </div>
+                <!-- Sidenav Accordion (Stall)-->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseStalls" aria-expanded="false" aria-controls="collapseStalls">
                     <div class="nav-link-icon"><i data-feather="map"></i></div>
                     Kios atau Los
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse" id="collapseRegions" data-bs-parent="#accordionSidenav">
+                <div class="collapse" id="collapseStalls" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
                         <a class="nav-link" href="{{ route('stall') }}">
                             Tabel Kios/Los
