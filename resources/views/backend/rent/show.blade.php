@@ -13,11 +13,11 @@
                 <div class="col-auto mb-3">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="coffee"></i></div>
-                        Detail Kios/Los
+                        Detail Sewa
                     </h1>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="/stall/{{ $sta->id }}/edit">
+                    <a class="btn btn-sm btn-light text-primary" href="/rent/{{ $ren->id }}/edit">
                         <i class="me-1" data-feather="edit"></i>
                         Ubah
                     </a>
@@ -25,9 +25,9 @@
                         <i class="me-1" data-feather="trash-2"></i>
                         Hapus
                     </a>
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('stall') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('rent') }}">
                         <i class="me-1" data-feather="arrow-left"></i>
-                        Kembali ke Tabel Kios/Los
+                        Kembali ke Tabel Sewa
                     </a>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                                 ID Jenis Tempat
                             </div>
                             <div class="col-9">
-                                {{ $sta->id }}
+                                {{ $ren->id }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
@@ -56,7 +56,7 @@
                                 Nama Jenis Tempat
                             </div>
                             <div class="col-9">
-                                {{ $sta->stall_type }}
+                                {{ $ren->rent_type }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
@@ -64,7 +64,7 @@
                                 Luas Tempat
                             </div>
                             <div class="col-9">
-                                {{ $sta->area }}
+                                {{ $ren->area }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
@@ -72,7 +72,7 @@
                                Retribusi Tempat
                             </div>
                             <div class="col-9">
-                                {{ $sta->retribution }}
+                                {{ $ren->retribution }}
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                 <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">
                     Tidak
                 </button>
-                <form class="btn" action="{{ route('stall-delete', $sta->id) }}" method="POST">
+                <form class="btn" action="{{ route('rent-delete', $ren->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-primary">

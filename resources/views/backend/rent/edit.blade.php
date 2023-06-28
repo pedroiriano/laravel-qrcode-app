@@ -13,13 +13,13 @@
                 <div class="col-auto mb-3">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="file-plus"></i></div>
-                        Ubah Kios/Los
+                        Ubah Sewa
                     </h1>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('stall') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('rent') }}">
                         <i class="me-1" data-feather="arrow-left"></i>
-                        Kembali ke Tabel Kios/Los
+                        Kembali ke Tabel Sewa
                     </a>
                 </div>
             </div>
@@ -27,7 +27,7 @@
     </div>
 </header>
 <!-- Main page content-->
-<form action="{{ route('stall-update', $sta->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('rent-update', $ren->id) }}" method="POST" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 <div class="container-fluid px-4">
@@ -37,11 +37,11 @@
             <div class="card mb-4">
                 <div class="card-header">Jenis Tempat</div>
                 <div class="card-body">
-                    <select class="form-control" id="stall" name="stall">
-                        <option value="Kios" {{ $sta->stall_type == 'Kios' ? 'selected' : '' }}>
+                    <select class="form-control" id="rent" name="rent">
+                        <option value="Kios" {{ $ren->rent_type == 'Kios' ? 'selected' : '' }}>
                             Kios
                         </option>
-                        <option value="Los" {{ $sta->stall_type == 'Los' ? 'selected' : '' }}>
+                        <option value="Los" {{ $ren->rent_type == 'Los' ? 'selected' : '' }}>
                             Los
                         </option>
                     </select>
@@ -51,19 +51,19 @@
                 <div class="card-header">Luas</div>
                 <div class="card-body">
                     <select class="form-control" id="area" name="area">
-                        <option value="n/a" {{ $sta->area == 'n/a' ? 'selected' : '' }}>
+                        <option value="n/a" {{ $ren->area == 'n/a' ? 'selected' : '' }}>
                             Pilih Luas
                         </option>
-                        <option value="0 - 5 m2" {{ $sta->area == '0 - 5 m2' ? 'selected' : '' }}>
+                        <option value="0 - 5 m2" {{ $ren->area == '0 - 5 m2' ? 'selected' : '' }}>
                             0 - 5 m2
                         </option>
-                        <option value="6 - 10 m2" {{ $sta->area == '6 - 10 m2' ? 'selected' : '' }}>
+                        <option value="6 - 10 m2" {{ $ren->area == '6 - 10 m2' ? 'selected' : '' }}>
                             6 - 10 m2
                         </option>
-                        <option value="11 - 15 m2" {{ $sta->area == '11 - 15 m2' ? 'selected' : '' }}>
+                        <option value="11 - 15 m2" {{ $ren->area == '11 - 15 m2' ? 'selected' : '' }}>
                             11 - 15 m2
                         </option>
-                        <option value="16 - 20 m2" {{ $sta->area == '16 - 20 m2' ? 'selected' : '' }}>
+                        <option value="16 - 20 m2" {{ $ren->area == '16 - 20 m2' ? 'selected' : '' }}>
                             16 - 20 m2
                         </option>
                     </select>
@@ -72,7 +72,7 @@
             <div class="card mb-4">
                 <div class="card-header">Retribusi Harian</div>
                 <div class="card-body">
-                    <input class="form-control" id="retribution" name="retribution" type="number" placeholder="Masukkan Retribusi (contoh: 4500)" value="{{ $sta->retribution }}" />
+                    <input class="form-control" id="retribution" name="retribution" type="number" placeholder="Masukkan Retribusi (contoh: 4500)" value="{{ $ren->retribution }}" />
                 </div>
             </div>
         </div>
@@ -94,19 +94,4 @@
     </div>
 </div>
 </form>
-@endsection
-
-@section('js')
-{{-- BEGIN::Triggered Form Section --}}
-<script>
-$("#stall").change(function() {
-  if ($(this).val() == "Kios") {
-    $('#area').show();
-  } else {
-    $('#area').hide();
-  }
-});
-$("#stall").trigger("change");
-</script>
-{{-- END::Triggered Form Section --}}
 @endsection
