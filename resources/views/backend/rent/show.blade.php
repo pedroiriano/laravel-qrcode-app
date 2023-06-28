@@ -13,11 +13,11 @@
                 <div class="col-auto mb-3">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="coffee"></i></div>
-                        Detail Pedagang
+                        Detail Kios/Los
                     </h1>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="/merchant/{{ $mer->id }}/edit">
+                    <a class="btn btn-sm btn-light text-primary" href="/stall/{{ $sta->id }}/edit">
                         <i class="me-1" data-feather="edit"></i>
                         Ubah
                     </a>
@@ -25,9 +25,9 @@
                         <i class="me-1" data-feather="trash-2"></i>
                         Hapus
                     </a>
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('merchant') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('stall') }}">
                         <i class="me-1" data-feather="arrow-left"></i>
-                        Kembali ke Tabel Pedagang
+                        Kembali ke Tabel Kios/Los
                     </a>
                 </div>
             </div>
@@ -39,40 +39,40 @@
     @include('inc.alert-message')
     <div class="card">
         <div class="card-body">
-            <div class="small text-muted mb-2 fw-bolder text-uppercase">Pedagang</div>
+            <div class="small text-muted mb-2 fw-bolder text-uppercase">Jenis Tempat</div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ms-0">
                         <div class="row small text-muted fw-bold">
                             <div class="col-3">
-                                ID Pedagang
+                                ID Jenis Tempat
                             </div>
                             <div class="col-9">
-                                {{ $mer->id }}
+                                {{ $sta->id }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
                             <div class="col-3">
-                                NIK Pedagang
+                                Nama Jenis Tempat
                             </div>
                             <div class="col-9">
-                                {{ $mer->identity }}
+                                {{ $sta->stall_type }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
                             <div class="col-3">
-                                Nama Pedagang
+                                Luas Tempat
                             </div>
                             <div class="col-9">
-                                {{ $mer->name }}
+                                {{ $sta->area }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
                             <div class="col-3">
-                                Nomor Telepon
+                               Retribusi Tempat
                             </div>
                             <div class="col-9">
-                                {{ $mer->phone }}
+                                {{ $sta->retribution }}
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                 <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">
                     Tidak
                 </button>
-                <form class="btn" action="{{ route('merchant-delete', $mer->id) }}" method="POST">
+                <form class="btn" action="{{ route('stall-delete', $sta->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-primary">

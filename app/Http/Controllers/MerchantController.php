@@ -42,36 +42,30 @@ class MerchantController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'retribution' => 'required',
+            'identity' => 'required|min:16|max:16|unique:merchants',
+            'phone' => 'required|min:9|max:15|unique:merchants',
         ]);
 
         $user = auth()->user();
 
-        if (($request->input('merchant') === 'Kios') && ($request->input('area') === 'n/a'))
+        if ((DB::table('merchants')
+        ->where('identity', $request->input('identity'))
+        ->orWhere('phone', $request->input('phone'))
+        ->first()) === NULL)
         {
-            return back()->with('status', 'Maaf Pilih Luas');
+            $merchant = new Merchant;
+            $merchant->identity = $request->input('identity');
+            $merchant->name = $request->input('name');
+            $merchant->phone = $request->input('phone');
         }
         else
         {
-            if ((DB::table('merchants')
-            ->where('merchant_type', $request->input('merchant'))
-            ->where('area', $request->input('area'))
-            ->first()) === NULL)
-            {
-                $merchant = new Merchant;
-                $merchant->merchant_type = $request->input('merchant');
-                $merchant->area = $request->input('area');
-                $merchant->retribution = $request->input('retribution');
-            }
-            else
-            {
-                return back()->with('status', 'Maaf Data Sudah Ada');
-            }
+            return back()->with('status', 'Maaf Data Sudah Ada');
         }
 
         $merchant->save();
 
-        return redirect()->route('merchant')->with('success', 'Pasar Berhasil Disimpan');
+        return redirect()->route('merchant')->with('success', 'Pedagang Berhasil Disimpan');
     }
 
     public function show($id)
@@ -102,24 +96,28 @@ class MerchantController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'retribution' => 'required',
+            'identity' => 'required|min:16|max:16',
+            'phone' => 'required|min:9|max:15',
         ]);
 
-        if (($request->input('merchant') === 'Kios') && ($request->input('area') === 'n/a'))
+        if (DB::table('merchants')->select('identity')->where('id', $id)->first()->identity == $request->input('identity'))
         {
-            return back()->with('status', 'Maaf Pilih Luas');
+            $merchant = Merchant::findOrFail($id);
+            $merchant->identity = $request->input('identity');
+            $merchant->name = $request->input('name');
+            $merchant->phone = $request->input('phone');
         }
         else
         {
             if ((DB::table('merchants')
-            ->where('merchant_type', $request->input('merchant'))
-            ->where('area', $request->input('area'))
+            ->where('identity', $request->input('identity'))
+            ->orWhere('phone', $request->input('phone'))
             ->first()) === NULL)
             {
                 $merchant = Merchant::findOrFail($id);
-                $merchant->merchant_type = $request->input('merchant');
-                $merchant->area = $request->input('area');
-                $merchant->retribution = $request->input('retribution');
+                $merchant->identity = $request->input('identity');
+                $merchant->name = $request->input('name');
+                $merchant->phone = $request->input('phone');
             }
             else
             {
@@ -129,7 +127,7 @@ class MerchantController extends Controller
 
         $merchant->save();
 
-        return redirect()->route('merchant')->with('success', 'Pasar Berhasil Diubah');
+        return redirect()->route('merchant')->with('success', 'Pedagang Berhasil Diubah');
     }
 
     public function destroy($id)
@@ -138,7 +136,7 @@ class MerchantController extends Controller
             $mer = Merchant::findOrFail($id);
             $mer->delete();
 
-            return redirect()->route('merchant')->with('success', 'Pasar Berhasil Dihapus');
+            return redirect()->route('merchant')->with('success', 'Pedagang Berhasil Dihapus');
         } catch (\Exception $e) {
             return back()->with('error', 'Maaf Data Tidak Sesuai');
         }

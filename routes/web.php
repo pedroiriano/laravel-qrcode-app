@@ -7,6 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StallController;
 use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\RentController;
 use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,6 @@ Route::get('/qrcode', [QrCodeController::class, 'index']);
 Route::get('/generate-qrcode', [QrCodeController::class, 'generateQrCode'])->name('generate.qrcode');
 
 Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/backend', [BackendController::class, 'index'])->name('backend');
 
@@ -52,3 +51,11 @@ Route::get('/merchant/{merchant}', [MerchantController::class, 'show'])->name('m
 Route::get('/merchant/{merchant}/edit', [MerchantController::class, 'edit'])->name('merchant-edit');
 Route::put('/merchant/{merchant}', [MerchantController::class, 'update'])->name('merchant-update');
 Route::delete('/merchant/{merchant}', [MerchantController::class, 'destroy'])->name('merchant-delete');
+
+Route::get('/rent', [RentController::class, 'index'])->name('rent');
+Route::get('/rent/create', [RentController::class, 'create'])->name('rent-form');
+Route::post('/rent', [RentController::class, 'store'])->name('rent-store');
+Route::get('/rent/{rent}', [RentController::class, 'show'])->name('rent-show');
+Route::get('/rent/{rent}/edit', [RentController::class, 'edit'])->name('rent-edit');
+Route::put('/rent/{rent}', [RentController::class, 'update'])->name('rent-update');
+Route::delete('/rent/{rent}', [RentController::class, 'destroy'])->name('rent-delete');

@@ -41,6 +41,22 @@
                     </nav>
                 </div>
                 @if (auth()->user()->role_id == 1)
+                <!-- Sidenav Accordion (Rent)-->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseRents" aria-expanded="false" aria-controls="collapseRents">
+                    <div class="nav-link-icon"><i data-feather="dollar-sign"></i></div>
+                    Sewa
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseRents" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion">
+                        <a class="nav-link" href="{{ route('rent') }}">
+                            Tabel Sewa
+                        </a>
+                        <a class="nav-link" href="{{ route('rent-form') }}">
+                            Tambah Sewa
+                        </a>
+                    </nav>
+                </div>
                 <!-- Sidenav Accordion (Merchant)-->
                 <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseMerchants" aria-expanded="false" aria-controls="collapseMerchants">
                     <div class="nav-link-icon"><i data-feather="briefcase"></i></div>

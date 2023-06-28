@@ -13,9 +13,9 @@
                 <div class="col-auto mt-4">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="filter"></i></div>
-                        Tabel Kios/Los
+                        Tabel Sewa
                     </h1>
-                    <div class="page-header-subtitle">Data Utama Kios/Los</div>
+                    <div class="page-header-subtitle">Data Utama Sewa</div>
                 </div>
             </div>
         </div>
@@ -28,12 +28,12 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-6 text-start">
-                    Kios/Los
+                    Sewa
                 </div>
                 <div class="col-6 text-end">
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('stall-form') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('rent-form') }}">
                         <i class="me-1" data-feather="plus"></i>
-                        Tambah Kios/Los
+                        Tambah Sewa
                         <i class="ms-1" data-feather="plus"></i>
                     </a>
                 </div>
@@ -44,42 +44,51 @@
                 <thead>
                     <tr>
                         <th class="text-center">ID</th>
+                        <th class="text-center">Pedagang</th>
                         <th class="text-center">Jenis Tempat</th>
                         <th class="text-center">Luas</th>
-                        <th class="text-center">Retribusi</th>
+                        <th class="text-center">Lokasi</th>
+                        <th class="text-center">Jenis Jualan</th>
+                        <th class="text-center">Status</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th class="text-center">ID</th>
+                        <th class="text-center">Pedagang</th>
                         <th class="text-center">Jenis Tempat</th>
                         <th class="text-center">Luas</th>
-                        <th class="text-center">Retribusi</th>
+                        <th class="text-center">Lokasi</th>
+                        <th class="text-center">Jenis Jualan</th>
+                        <th class="text-center">Status</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     @if ((auth()->user()->role_id) == 1)
-                        @if (count($stas) > 0)
-                            @foreach ($stas as $sta)
+                        @if (count($rens) > 0)
+                            @foreach ($rens as $ren)
                                 <tr>
-                                    <td>{{ $sta->id }}</td>
-                                    <td>{{ $sta->stall_type }}</td>
-                                    <td>{{ $sta->area }}</td>
-                                    <td>{{ $sta->retribution }}</td>
+                                    <td>{{ $ren->id }}</td>
+                                    <td>{{ $ren->merchant_name }}</td>
+                                    <td>{{ $ren->stall_type }}</td>
+                                    <td>{{ $ren->stall_area }}</td>
+                                    <td>{{ $ren->location }}</td>
+                                    <td>{{ $ren->trade_type }}</td>
+                                    <td>{{ $ren->status }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
-                                            <a class="text-decoration-none text-muted" href="/stall/{{ $sta->id }}">
+                                            <a class="text-decoration-none text-muted" href="/rent/{{ $ren->id }}">
                                                 <i data-feather="eye"></i>
                                             </a>
                                         </button>
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
-                                            <a class="text-decoration-none text-muted" href="/stall/{{ $sta->id }}/edit">
+                                            <a class="text-decoration-none text-muted" href="/rent/{{ $ren->id }}/edit">
                                                 <i data-feather="edit"></i>
                                             </a>
                                         </button>
-                                        <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-stall" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('stall-delete', $sta->id) }}">
+                                        <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-rent" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('rent-delete', $ren->id) }}">
                                             <a class="text-decoration-none text-muted">
                                                 <i data-feather="trash-2"></i>
                                             </a>
@@ -89,7 +98,7 @@
                             @endforeach
                         @else
                         <tr>
-                            <td colspan="5" class="text-center">Data Masih Kosong</td>
+                            <td colspan="8" class="text-center">Data Masih Kosong</td>
                         </tr>
                         @endif
                     @else
@@ -130,7 +139,7 @@
 
 @section('js')
 <script>
-    $("#datatablesSimple").on("click", ".delete-stall", function() {
+    $("#datatablesSimple").on("click", ".delete-rent", function() {
         var url = $(this).attr('data-url');
         $("#deleteForm").attr("action", url);
     });

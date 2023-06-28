@@ -46,7 +46,7 @@ class StallController extends Controller
         ]);
 
         $user = auth()->user();
-        
+
         if (($request->input('stall') === 'Kios') && ($request->input('area') === 'n/a'))
         {
             return back()->with('status', 'Maaf Pilih Luas');
@@ -71,7 +71,7 @@ class StallController extends Controller
 
         $stall->save();
 
-        return redirect()->route('stall')->with('success', 'Pasar Berhasil Disimpan');
+        return redirect()->route('stall')->with('success', 'Kios/Los Berhasil Disimpan');
     }
 
     public function show($id)
@@ -104,7 +104,7 @@ class StallController extends Controller
         $this->validate($request, [
             'retribution' => 'required',
         ]);
-        
+
         if (($request->input('stall') === 'Kios') && ($request->input('area') === 'n/a'))
         {
             return back()->with('status', 'Maaf Pilih Luas');
@@ -129,7 +129,7 @@ class StallController extends Controller
 
         $stall->save();
 
-        return redirect()->route('stall')->with('success', 'Pasar Berhasil Diubah');
+        return redirect()->route('stall')->with('success', 'Kios/Los Berhasil Diubah');
     }
 
     public function destroy($id)
@@ -138,7 +138,7 @@ class StallController extends Controller
             $sta = Stall::findOrFail($id);
             $sta->delete();
 
-            return redirect()->route('stall')->with('success', 'Pasar Berhasil Dihapus');
+            return redirect()->route('stall')->with('success', 'Kios/Los Berhasil Dihapus');
         } catch (\Exception $e) {
             return back()->with('error', 'Maaf Data Tidak Sesuai');
         }
