@@ -39,24 +39,16 @@
     @include('inc.alert-message')
     <div class="card">
         <div class="card-body">
-            <div class="small text-muted mb-2 fw-bolder text-uppercase">Jenis Tempat</div>
+            <div class="small text-muted mb-2 fw-bolder text-uppercase">Informasi Tempat</div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ms-0">
                         <div class="row small text-muted fw-bold">
                             <div class="col-3">
-                                ID Jenis Tempat
+                                Jenis Tempat
                             </div>
                             <div class="col-9">
-                                {{ $ren->id }}
-                            </div>
-                        </div>
-                        <div class="row small text-muted fw-bold">
-                            <div class="col-3">
-                                Nama Jenis Tempat
-                            </div>
-                            <div class="col-9">
-                                {{ $ren->rent_type }}
+                                {{ $ren->stall_type }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
@@ -64,7 +56,7 @@
                                 Luas Tempat
                             </div>
                             <div class="col-9">
-                                {{ $ren->area }}
+                                {{ $ren->stall_area }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
@@ -72,7 +64,77 @@
                                Retribusi Tempat
                             </div>
                             <div class="col-9">
-                                {{ $ren->retribution }}
+                                {{ $ren->stall_retribution }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="small text-muted mb-2 fw-bolder text-uppercase">Informasi Pedagang</div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ms-0">
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-3">
+                                NIK Pedagang
+                            </div>
+                            <div class="col-9">
+                                {{ $ren->merchant_identity }}
+                            </div>
+                        </div>
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-3">
+                                Nama Pedagang
+                            </div>
+                            <div class="col-9">
+                                {{ $ren->merchant_name }}
+                            </div>
+                        </div>
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-3">
+                               Telepon Pedagang
+                            </div>
+                            <div class="col-9">
+                                {{ $ren->merchant_phone }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="small text-muted mb-2 fw-bolder text-uppercase">Informasi Sewa</div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ms-0">
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-3">
+                                Lokasi
+                            </div>
+                            <div class="col-9">
+                                {{ $ren->location }}
+                            </div>
+                        </div>
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-3">
+                                Jenis Jualan
+                            </div>
+                            <div class="col-9">
+                                {{ $ren->trade_type }}
+                            </div>
+                        </div>
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-3">
+                               Status
+                            </div>
+                            <div class="col-9">
+                                {{ $ren->status }}
                             </div>
                         </div>
                     </div>

@@ -37,42 +37,38 @@
             <div class="card mb-4">
                 <div class="card-header">Jenis Tempat</div>
                 <div class="card-body">
-                    <select class="form-control" id="rent" name="rent">
-                        <option value="Kios" {{ $ren->rent_type == 'Kios' ? 'selected' : '' }}>
-                            Kios
-                        </option>
-                        <option value="Los" {{ $ren->rent_type == 'Los' ? 'selected' : '' }}>
-                            Los
-                        </option>
+                    <select class="form-control" id="stall" name="stall">
+                        @foreach ($stas as $sta_id => $sta)
+                        <option value="{{ $sta_id }}" {{ $sta_id == $ren->stall_id ? 'selected' : '' }}>{{ $sta }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
             <div class="card mb-4">
-                <div class="card-header">Luas</div>
+                <div class="card-header">Pedagang</div>
                 <div class="card-body">
-                    <select class="form-control" id="area" name="area">
-                        <option value="n/a" {{ $ren->area == 'n/a' ? 'selected' : '' }}>
-                            Pilih Luas
-                        </option>
-                        <option value="0 - 5 m2" {{ $ren->area == '0 - 5 m2' ? 'selected' : '' }}>
-                            0 - 5 m2
-                        </option>
-                        <option value="6 - 10 m2" {{ $ren->area == '6 - 10 m2' ? 'selected' : '' }}>
-                            6 - 10 m2
-                        </option>
-                        <option value="11 - 15 m2" {{ $ren->area == '11 - 15 m2' ? 'selected' : '' }}>
-                            11 - 15 m2
-                        </option>
-                        <option value="16 - 20 m2" {{ $ren->area == '16 - 20 m2' ? 'selected' : '' }}>
-                            16 - 20 m2
-                        </option>
+                    <select class="form-control" id="merchant" name="merchant">
+                        @foreach ($mers as $mer_id => $mer)
+                        <option value="{{ $mer_id }}" {{ $mer_id == $ren->merchant_id ? 'selected' : '' }}>{{ $mer }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
             <div class="card mb-4">
-                <div class="card-header">Retribusi Harian</div>
+                <div class="card-header">Lokasi</div>
+                <div class="card-body"><input class="form-control" id="location" name="location" type="text" placeholder="Lokasi Jualan" value="{{ $ren->location }}" /></div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Jenis Jualan</div>
+                <div class="card-body"><input class="form-control" id="trade_type" name="trade_type" type="text" placeholder="Jenis Jualan (contoh: Sayuran)" value="{{ $ren->trade_type }}" /></div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Status</div>
                 <div class="card-body">
-                    <input class="form-control" id="retribution" name="retribution" type="number" placeholder="Masukkan Retribusi (contoh: 4500)" value="{{ $ren->retribution }}" />
+                    <select class="form-control" id="status" name="status">
+                        <option value="Aktif" {{ $ren->status == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                        <option value="Tidak Aktif" {{ $ren->status == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                    </select>
                 </div>
             </div>
         </div>

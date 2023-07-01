@@ -86,7 +86,11 @@ class RentController extends Controller
     public function show($id)
     {
         try {
-            $ren = Rent::where('id', $id)->first();
+            $ren = DB::table('rents')
+                ->join('stalls', 'rents.stall_id', '=', 'stalls.id')
+                ->join('merchants', 'rents.merchant_id', '=', 'merchants.id')
+                ->select('rents.*', 'stalls.stall_type', 'stalls.area as stall_area', 'stalls.retribution as stall_retribution', 'merchants.identity as merchant_identity', 'merchants.name as merchant_name', 'merchants.phone as merchant_phone')
+                ->first();
 
             return view('backend.rent.show')->with('ren', $ren);
         } catch (\Exception $e) {
@@ -101,7 +105,15 @@ class RentController extends Controller
         if(($user->role_id) == 1) {
             $ren = Rent::findOrFail($id);
 
-            return view('backend.rent.edit')->with('ren', $ren);
+            $stas = Stall::select(
+                DB::raw("CONCAT(stall_type, ' ', area) AS stall_info"), 'id')
+                ->pluck('stall_info', 'id');
+
+            $mers = Merchant::select(
+                DB::raw("CONCAT(identity, ' ', name) AS merchant_info"), 'id')
+                ->pluck('merchant_info', 'id');
+
+            return view('backend.rent.edit')->with('ren', $ren)->with('stas', $stas)->with('mers', $mers);
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
@@ -111,24 +123,35 @@ class RentController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'retribution' => 'required',
+            'location' => 'required',
+            'trade_type' => 'required',
         ]);
 
-        if (($request->input('rent') === 'Kios') && ($request->input('area') === 'n/a'))
+        if ((DB::table('rents')->select('stall_id')->where('id', $id)->first()->stall_id == $request->input('stall')) && (DB::table('rents')->select('merchant_id')->where('id', $id)->first()->merchant_id == $request->input('merchant')) && (DB::table('rents')->select('location')->where('id', $id)->first()->location == $request->input('location')))
         {
-            return back()->with('status', 'Maaf Pilih Luas');
+            $rent = Rent::findOrFail($id);
+            $rent->stall_id = $request->input('stall');
+            $rent->merchant_id = $request->input('merchant');
+            $rent->location = $request->input('location');
+            $rent->trade_type = $request->input('trade_type');
+            // $rent->qr = $image_name;
+            $rent->status = $request->input('status');
         }
         else
         {
             if ((DB::table('rents')
-            ->where('rent_type', $request->input('rent'))
-            ->where('area', $request->input('area'))
+            ->where('stall_id', $request->input('stall'))
+            ->where('merchant_id', $request->input('merchant'))
+            ->where('location', $request->input('location'))
             ->first()) === NULL)
             {
                 $rent = Rent::findOrFail($id);
-                $rent->rent_type = $request->input('rent');
-                $rent->area = $request->input('area');
-                $rent->retribution = $request->input('retribution');
+                $rent->stall_id = $request->input('stall');
+                $rent->merchant_id = $request->input('merchant');
+                $rent->location = $request->input('location');
+                $rent->trade_type = $request->input('trade_type');
+                // $rent->qr = $image_name;
+                $rent->status = $request->input('status');
             }
             else
             {
