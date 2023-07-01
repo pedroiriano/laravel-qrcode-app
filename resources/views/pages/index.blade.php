@@ -14,7 +14,7 @@
                     <div class="col-md-4">
                         <div class="card text-center mb-3">
                             <div class="card-header">
-                                {{ $ren ? $ren->location : 'No Location' }}
+                                {{ $ren ? $ren->merchant_name : 'No Name' }} {{ $ren ? $ren->stall_type : 'No Stall Type' }} {{ $ren ? $ren->location : 'No Location' }}
                             </div>
                             <div class="card-body">
                                 @if (!empty($ren->qr))
