@@ -14,7 +14,7 @@ class RentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except('show');
+        $this->middleware('auth');
     }
 
     public function index()
