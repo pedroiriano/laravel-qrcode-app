@@ -55,6 +55,12 @@
                 </div>
             </div>
             <div class="card mb-4">
+                <div class="card-header">Luas</div>
+                <div class="card-body">
+                    <input class="form-control" id="area" name="area" type="number" placeholder="Masukkan Luas (contoh: 5)" value="{{ $ren->area }}" />
+                </div>
+            </div>
+            <div class="card mb-4">
                 <div class="card-header">Lokasi</div>
                 <div class="card-body"><input class="form-control" id="location" name="location" type="text" placeholder="Lokasi Jualan" value="{{ $ren->location }}" /></div>
             </div>

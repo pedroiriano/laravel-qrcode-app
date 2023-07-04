@@ -44,10 +44,20 @@
                 <div class="card-body"><input class="form-control" id="name" name="name" type="text" placeholder="Masukkan Nama (contoh: Pedro Iriano)" /></div>
             </div>
             <div class="card mb-4">
+                <div class="card-header">Alamat</div>
+                <div class="card-body">
+                    <textarea class="lh-base form-control" id="address" name="address" type="text" placeholder="Alamat Rumah (contoh: Pesona Cilebut 2 Blok BB No. 11)" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="card mb-4">
                 <div class="card-header">Telepon</div>
                 <div class="card-body">
                     <input class="form-control" id="phone" name="phone" type="number" placeholder="Masukkan Nomor Telepon/HP (contoh: 08999999999)" />
                 </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Foto</div>
+                <div class="card-body"><input class="form-control" id="photo" name="photo" type="file" /></div>
             </div>
         </div>
         <!-- Sticky Navigation-->

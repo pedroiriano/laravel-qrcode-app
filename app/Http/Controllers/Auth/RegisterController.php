@@ -8,8 +8,6 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class RegisterController extends Controller
 {
@@ -66,17 +64,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $image = QrCode::format('png')->size(200)->errorCorrection('H')->generate($data['name']);
-
-        $image_name = 'img-'.time().'.png';
-        $image_path = '/img/qr-code/';
-        $output_image = $image_path.$image_name;
-        Storage::disk('public')->put($output_image, $image);
-
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'photo' => $image_name,
             'password' => Hash::make($data['password']),
         ]);
     }

@@ -58,12 +58,13 @@ class RentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'area' => 'required',
             'location' => 'required',
         ]);
 
         $user = auth()->user();
 
-        $image = QrCode::format('png')->size(200)->errorCorrection('H')->generate('https://pasardepok.pepeve.id/rent/'.$request['merchant']);
+        $image = QrCode::format('png')->size(200)->errorCorrection('H')->generate('https://pasarkemiridepok.pepeve.id/rent/'.$request['merchant']);
 
         $image_name = 'img-'.time().'.png';
         $image_path = '/img/qr-code/';
@@ -73,6 +74,7 @@ class RentController extends Controller
         $rent = new Rent;
         $rent->stall_id = $request->input('stall');
         $rent->merchant_id = $request->input('merchant');
+        $rent->area = $request->input('area');
         $rent->location = $request->input('location');
         $rent->trade_type = $request->input('trade_type');
         $rent->qr = $image_name;
@@ -123,6 +125,7 @@ class RentController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'area' => 'required',
             'location' => 'required',
             'trade_type' => 'required',
         ]);
@@ -132,9 +135,9 @@ class RentController extends Controller
             $rent = Rent::findOrFail($id);
             $rent->stall_id = $request->input('stall');
             $rent->merchant_id = $request->input('merchant');
+            $rent->area = $request->input('area');
             $rent->location = $request->input('location');
             $rent->trade_type = $request->input('trade_type');
-            // $rent->qr = $image_name;
             $rent->status = $request->input('status');
         }
         else
@@ -148,9 +151,9 @@ class RentController extends Controller
                 $rent = Rent::findOrFail($id);
                 $rent->stall_id = $request->input('stall');
                 $rent->merchant_id = $request->input('merchant');
+                $rent->area = $request->input('area');
                 $rent->location = $request->input('location');
                 $rent->trade_type = $request->input('trade_type');
-                // $rent->qr = $image_name;
                 $rent->status = $request->input('status');
             }
             else

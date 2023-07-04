@@ -54,6 +54,12 @@
                 </div>
             </div>
             <div class="card mb-4">
+                <div class="card-header">Luas</div>
+                <div class="card-body">
+                    <input class="form-control" id="area" name="area" type="number" placeholder="Masukkan Luas (contoh: 5)" />
+                </div>
+            </div>
+            <div class="card mb-4">
                 <div class="card-header">Lokasi</div>
                 <div class="card-body"><input class="form-control" id="location" name="location" type="text" placeholder="Lokasi Jualan" /></div>
             </div>
