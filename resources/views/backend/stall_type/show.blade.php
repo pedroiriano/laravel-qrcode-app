@@ -17,7 +17,7 @@
                     </h1>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="/stall/{{ $sta->id }}/edit">
+                    <a class="btn btn-sm btn-light text-primary" href="/stall-type/{{ $sty->id }}/edit">
                         <i class="me-1" data-feather="edit"></i>
                         Ubah
                     </a>
@@ -25,7 +25,7 @@
                         <i class="me-1" data-feather="trash-2"></i>
                         Hapus
                     </a>
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('stall') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('stall-type') }}">
                         <i class="me-1" data-feather="arrow-left"></i>
                         Kembali ke Tabel Kios/Los
                     </a>
@@ -48,7 +48,7 @@
                                 ID Jenis Tempat
                             </div>
                             <div class="col-9">
-                                {{ $sta->id }}
+                                {{ $sty->id }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
@@ -56,7 +56,7 @@
                                 Nama Jenis Tempat
                             </div>
                             <div class="col-9">
-                                {{ $sta->stall_type }}
+                                {{ $sty->stall_type }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
@@ -64,7 +64,7 @@
                                 Luas Tempat
                             </div>
                             <div class="col-9">
-                                {{ $sta->area }}
+                                {{ $sty->area }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
@@ -72,7 +72,7 @@
                                Retribusi Tempat
                             </div>
                             <div class="col-9">
-                                {{ $sta->retribution }}
+                                {{ $sty->retribution }}
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                 <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">
                     Tidak
                 </button>
-                <form class="btn" action="{{ route('stall-delete', $sta->id) }}" method="POST">
+                <form class="btn" action="{{ route('stall-type-delete', $sty->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-primary">

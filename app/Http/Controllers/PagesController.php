@@ -11,9 +11,9 @@ class PagesController extends Controller
     public function index()
     {
         $rens = DB::table('rents')
-            ->join('stalls', 'rents.stall_id', '=', 'stalls.id')
+            ->join('stall_types', 'rents.stall_id', '=', 'stall_types.id')
             ->join('merchants', 'rents.merchant_id', '=', 'merchants.id')
-            ->select('rents.*', 'stalls.stall_type', 'stalls.area as stall_area', 'merchants.identity as merchant_identity', 'merchants.name as merchant_name', 'merchants.phone as merchant_phone')
+            ->select('rents.*', 'stall_types.stall_type', 'stall_types.area as stall_area', 'merchants.identity as merchant_identity', 'merchants.name as merchant_name', 'merchants.phone as merchant_phone')
             ->paginate(6);
 
         return view('pages.index')->with('rens', $rens);

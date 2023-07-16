@@ -5,7 +5,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\StallController;
+use App\Http\Controllers\StallTypeController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\RentController;
 use App\Http\Controllers\QrCodeController;
@@ -36,13 +36,13 @@ Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user-edi
 Route::put('/user/{user}', [UserController::class, 'update'])->name('user-update');
 Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user-delete');
 
-Route::get('/stall', [StallController::class, 'index'])->name('stall');
-Route::get('/stall/create', [StallController::class, 'create'])->name('stall-form');
-Route::post('/stall', [StallController::class, 'store'])->name('stall-store');
-Route::get('/stall/{stall}', [StallController::class, 'show'])->name('stall-show');
-Route::get('/stall/{stall}/edit', [StallController::class, 'edit'])->name('stall-edit');
-Route::put('/stall/{stall}', [StallController::class, 'update'])->name('stall-update');
-Route::delete('/stall/{stall}', [StallController::class, 'destroy'])->name('stall-delete');
+Route::get('/stall-type', [StallTypeController::class, 'index'])->name('stall-type');
+Route::get('/stall-type/create', [StallTypeController::class, 'create'])->name('stall-type-form');
+Route::post('/stall-type', [StallTypeController::class, 'store'])->name('stall-type-store');
+Route::get('/stall-type/{stall_type}', [StallTypeController::class, 'show'])->name('stall-type-show');
+Route::get('/stall-type/{stall_type}/edit', [StallTypeController::class, 'edit'])->name('stall-type-edit');
+Route::put('/stall-type/{stall_type}', [StallTypeController::class, 'update'])->name('stall-type-update');
+Route::delete('/stall-type/{stall_type}', [StallTypeController::class, 'destroy'])->name('stall-type-delete');
 
 Route::get('/merchant', [MerchantController::class, 'index'])->name('merchant');
 Route::get('/merchant/create', [MerchantController::class, 'create'])->name('merchant-form');

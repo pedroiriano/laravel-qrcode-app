@@ -81,10 +81,10 @@
                 </a>
                 <div class="collapse" id="collapseStalls" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
-                        <a class="nav-link" href="{{ route('stall') }}">
+                        <a class="nav-link" href="{{ route('stall-type') }}">
                             Tabel Jenis Tempat
                         </a>
-                        <a class="nav-link" href="{{ route('stall-form') }}">
+                        <a class="nav-link" href="{{ route('stall-type-form') }}">
                             Tambah Jenis Tempat
                         </a>
                     </nav>

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Stall extends Model
+class StallType extends Model
 {
     use HasFactory;
 
-    protected $table = 'stalls';
+    protected $table = 'stall_types';
     public $primaryKey = 'id';
 }

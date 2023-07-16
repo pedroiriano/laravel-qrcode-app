@@ -31,7 +31,7 @@
                     Kios/Los
                 </div>
                 <div class="col-6 text-end">
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('stall-form') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('stall-type-form') }}">
                         <i class="me-1" data-feather="plus"></i>
                         Tambah Kios/Los
                         <i class="ms-1" data-feather="plus"></i>
@@ -61,25 +61,25 @@
                 </tfoot>
                 <tbody>
                     @if ((auth()->user()->role_id) == 1)
-                        @if (count($stas) > 0)
-                            @foreach ($stas as $sta)
+                        @if (count($stys) > 0)
+                            @foreach ($stys as $sty)
                                 <tr>
-                                    <td>{{ $sta->id }}</td>
-                                    <td>{{ $sta->stall_type }}</td>
-                                    <td>{{ $sta->area }}</td>
-                                    <td>{{ $sta->retribution }}</td>
+                                    <td>{{ $sty->id }}</td>
+                                    <td>{{ $sty->stall_type }}</td>
+                                    <td>{{ $sty->area }}</td>
+                                    <td>{{ $sty->retribution }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
-                                            <a class="text-decoration-none text-muted" href="/stall/{{ $sta->id }}">
+                                            <a class="text-decoration-none text-muted" href="/stall-type/{{ $sty->id }}">
                                                 <i data-feather="eye"></i>
                                             </a>
                                         </button>
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
-                                            <a class="text-decoration-none text-muted" href="/stall/{{ $sta->id }}/edit">
+                                            <a class="text-decoration-none text-muted" href="/stall-type/{{ $sty->id }}/edit">
                                                 <i data-feather="edit"></i>
                                             </a>
                                         </button>
-                                        <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-stall" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('stall-delete', $sta->id) }}">
+                                        <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-stall-type" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('stall-type-delete', $sty->id) }}">
                                             <a class="text-decoration-none text-muted">
                                                 <i data-feather="trash-2"></i>
                                             </a>
@@ -130,7 +130,7 @@
 
 @section('js')
 <script>
-    $("#datatablesSimple").on("click", ".delete-stall", function() {
+    $("#datatablesSimple").on("click", ".delete-stall-type", function() {
         var url = $(this).attr('data-url');
         $("#deleteForm").attr("action", url);
     });
