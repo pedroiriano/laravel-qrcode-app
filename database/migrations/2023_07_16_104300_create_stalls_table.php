@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rents', function (Blueprint $table) {
+        Schema::create('stalls', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('stall_id');
-            $table->bigInteger('merchant_id');
-            $table->string('trade_type');
-            $table->date('start');
-            $table->date('end');
-            $table->string('status')->default('Tidak Aktif');
+            $table->bigInteger('stall_type_id');
+            $table->string('location');
+            $table->integer('area');
+            $table->double('cost')->nullable();
+            $table->text('qr')->nullable();
+            $table->string('occupy')->default('Tidak');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rents');
+        Schema::dropIfExists('stalls');
     }
 };

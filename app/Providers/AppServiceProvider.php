@@ -26,8 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
-
         $all_users = User::paginate(3);
 
         $pages_data = array(

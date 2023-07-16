@@ -13,13 +13,13 @@
                 <div class="col-auto mb-3">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="file-plus"></i></div>
-                        Tambah Jenis Kios/Los
+                        Ubah Kios/Los
                     </h1>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('stall-type') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('stall') }}">
                         <i class="me-1" data-feather="arrow-left"></i>
-                        Kembali ke Tabel Jenis Kios/Los
+                        Kembali ke Tabel Kios/Los
                     </a>
                 </div>
             </div>
@@ -27,8 +27,9 @@
     </div>
 </header>
 <!-- Main page content-->
-<form action="{{ route('stall-type-store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('stall-update', $sta->id) }}" method="POST" enctype="multipart/form-data">
 @csrf
+@method('PUT')
 <div class="container-fluid px-4">
     @include('inc.alert-message')
     <div class="row gx-4">
@@ -36,9 +37,13 @@
             <div class="card mb-4">
                 <div class="card-header">Jenis Tempat</div>
                 <div class="card-body">
-                    <select class="form-control" id="stall_type" name="stall_type">
-                        <option value="Kios" selected>Kios</option>
-                        <option value="Los">Los</option>
+                    <select class="form-control" id="stall" name="stall">
+                        <option value="Kios" {{ $sta->stall_type == 'Kios' ? 'selected' : '' }}>
+                            Kios
+                        </option>
+                        <option value="Los" {{ $sta->stall_type == 'Los' ? 'selected' : '' }}>
+                            Los
+                        </option>
                     </select>
                 </div>
             </div>
@@ -46,18 +51,28 @@
                 <div class="card-header">Luas</div>
                 <div class="card-body">
                     <select class="form-control" id="area" name="area">
-                        <option value="n/a" selected>Pilih Luas</option>
-                        <option value="0 - 5 m2">0 - 5 m2</option>
-                        <option value="6 - 10 m2">6 - 10 m2</option>
-                        <option value="11 - 15 m2">11 - 15 m2</option>
-                        <option value="16 - 20 m2">16 - 20 m2</option>
+                        <option value="n/a" {{ $sta->area == 'n/a' ? 'selected' : '' }}>
+                            Pilih Luas
+                        </option>
+                        <option value="0 - 5 m2" {{ $sta->area == '0 - 5 m2' ? 'selected' : '' }}>
+                            0 - 5 m2
+                        </option>
+                        <option value="6 - 10 m2" {{ $sta->area == '6 - 10 m2' ? 'selected' : '' }}>
+                            6 - 10 m2
+                        </option>
+                        <option value="11 - 15 m2" {{ $sta->area == '11 - 15 m2' ? 'selected' : '' }}>
+                            11 - 15 m2
+                        </option>
+                        <option value="16 - 20 m2" {{ $sta->area == '16 - 20 m2' ? 'selected' : '' }}>
+                            16 - 20 m2
+                        </option>
                     </select>
                 </div>
             </div>
             <div class="card mb-4">
                 <div class="card-header">Retribusi Harian</div>
                 <div class="card-body">
-                    <input class="form-control" id="retribution" name="retribution" type="number" placeholder="Masukkan Retribusi (contoh: 4500)" />
+                    <input class="form-control" id="retribution" name="retribution" type="number" placeholder="Masukkan Retribusi (contoh: 4500)" value="{{ $sta->retribution }}" />
                 </div>
             </div>
         </div>
@@ -84,14 +99,14 @@
 @section('js')
 {{-- BEGIN::Triggered Form Section --}}
 <script>
-$("#stall_type").change(function() {
+$("#stall").change(function() {
   if ($(this).val() == "Kios") {
     $('#area').show();
   } else {
     $('#area').hide();
   }
 });
-$("#stall_type").trigger("change");
+$("#stall").trigger("change");
 </script>
 {{-- END::Triggered Form Section --}}
 @endsection

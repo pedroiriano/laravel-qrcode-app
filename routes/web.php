@@ -6,8 +6,10 @@ use App\Http\Controllers\BackendController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StallTypeController;
+use App\Http\Controllers\StallController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\RentController;
+use App\Http\Controllers\RetributionController;
 use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,6 +45,14 @@ Route::get('/stall-type/{stall_type}', [StallTypeController::class, 'show'])->na
 Route::get('/stall-type/{stall_type}/edit', [StallTypeController::class, 'edit'])->name('stall-type-edit');
 Route::put('/stall-type/{stall_type}', [StallTypeController::class, 'update'])->name('stall-type-update');
 Route::delete('/stall-type/{stall_type}', [StallTypeController::class, 'destroy'])->name('stall-type-delete');
+
+Route::get('/stall', [StallController::class, 'index'])->name('stall');
+Route::get('/stall/create', [StallController::class, 'create'])->name('stall-form');
+Route::post('/stall', [StallController::class, 'store'])->name('stall-store');
+Route::get('/stall/{stall}', [StallController::class, 'show'])->name('stall-show');
+Route::get('/stall/{stall}/edit', [StallController::class, 'edit'])->name('stall-edit');
+Route::put('/stall/{stall}', [StallController::class, 'update'])->name('stall-update');
+Route::delete('/stall/{stall}', [StallController::class, 'destroy'])->name('stall-delete');
 
 Route::get('/merchant', [MerchantController::class, 'index'])->name('merchant');
 Route::get('/merchant/create', [MerchantController::class, 'create'])->name('merchant-form');

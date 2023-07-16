@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('rents', function (Blueprint $table) {
-            $table->integer('area')->after('merchant_id');
+        Schema::create('retributions', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('rent_id');
+            $table->date('pay_date');
+            $table->double('amount');
+            $table->double('due_amount');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('rents', function (Blueprint $table) {
-            $table->dropColumn('area');
-        });
+        Schema::dropIfExists('retributions');
     }
 };
