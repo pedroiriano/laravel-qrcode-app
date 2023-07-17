@@ -38,40 +38,40 @@
 <div class="container-fluid px-4">
     @include('inc.alert-message')
     <div class="card">
+        <div class="card-header">Jenis Tempat</div>
         <div class="card-body">
-            <div class="small text-muted mb-2 fw-bolder text-uppercase">Jenis Tempat</div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ms-0">
                         <div class="row small text-muted fw-bold">
-                            <div class="col-3">
+                            <div class="col-6">
                                 ID Jenis Tempat
                             </div>
-                            <div class="col-9">
+                            <div class="col-6">
                                 {{ $sty->id }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
-                            <div class="col-3">
+                            <div class="col-6">
                                 Nama Jenis Tempat
                             </div>
-                            <div class="col-9">
+                            <div class="col-6">
                                 {{ $sty->stall_type }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
-                            <div class="col-3">
+                            <div class="col-6">
                                 Luas Tempat
                             </div>
-                            <div class="col-9">
+                            <div class="col-6">
                                 {{ $sty->area }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
-                            <div class="col-3">
+                            <div class="col-6">
                                Retribusi Tempat
                             </div>
-                            <div class="col-9">
+                            <div class="col-6">
                                 {{ $sty->retribution }}
                             </div>
                         </div>

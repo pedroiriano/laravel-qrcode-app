@@ -59,22 +59,22 @@
                         <!-- Form Group (username)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="user">Nama Pengguna</label>
-                            <input class="form-control" id="user" name="user" type="text" placeholder="Masukkan Nama Pengguna" value="{{ $use->name }}" />
+                            <input class="form-control" id="user" name="user" type="text" placeholder="Masukkan Nama Pengguna" value="{{ $use->name }}" disabled />
                         </div>
                         <!-- Form Group (email address)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="email">Alamat Email</label>
-                            <input class="form-control" id="email" type="email" placeholder="Masukkan Alamat Email" value="{{ $use->email }}" />
+                            <input class="form-control" id="email" type="email" placeholder="Masukkan Alamat Email" value="{{ $use->email }}" disabled />
                         </div>
                         <!-- Form Group (role)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="role">Wewenang</label>
-                            <input class="form-control" id="role" type="role" placeholder="Masukkan Wewenang" value="{{ $use->role_name }}" />
+                            <input class="form-control" id="role" type="role" placeholder="Masukkan Wewenang" value="{{ $use->role_name }}" disabled />
                         </div>
                         <!-- Form Group (status)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="status">Status</label>
-                            <input class="form-control" id="status" type="status" placeholder="Masukkan Nama Pasar" value="{{ $use->status }}" />
+                            <input class="form-control" id="status" type="status" placeholder="Masukkan Nama Pasar" value="{{ $use->status }}" disabled />
                         </div>
                     </form>
                 </div>

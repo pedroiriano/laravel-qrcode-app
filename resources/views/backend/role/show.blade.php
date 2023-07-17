@@ -38,24 +38,24 @@
 <div class="container-fluid px-4">
     @include('inc.alert-message')
     <div class="card">
+        <div class="card-header">Wewenang</div>
         <div class="card-body">
-            <div class="small text-muted mb-2 fw-bolder text-uppercase">Wewenang</div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ms-0">
                         <div class="row small text-muted fw-bold">
-                            <div class="col-3">
+                            <div class="col-6">
                                 ID Wewenang
                             </div>
-                            <div class="col-9">
+                            <div class="col-6">
                                 {{ $rol->id }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">
-                            <div class="col-3">
+                            <div class="col-6">
                                 Nama Wewenang
                             </div>
-                            <div class="col-9">
+                            <div class="col-6">
                                 {{ $rol->name }}
                             </div>
                         </div>

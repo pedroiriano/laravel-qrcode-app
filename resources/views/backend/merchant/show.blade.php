@@ -37,49 +37,63 @@
 <!-- Main page content-->
 <div class="container-fluid px-4">
     @include('inc.alert-message')
-    <div class="card">
-        <div class="card-body">
-            <div class="small text-muted mb-2 fw-bolder text-uppercase">Pedagang</div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ms-0">
-                        <div class="row small text-muted fw-bold">
-                            <div class="col-3">
-                                ID Pedagang
-                            </div>
-                            <div class="col-9">
-                                {{ $mer->id }}
-                            </div>
-                        </div>
-                        <div class="row small text-muted fw-bold">
-                            <div class="col-3">
-                                NIK Pedagang
-                            </div>
-                            <div class="col-9">
-                                {{ $mer->identity }}
-                            </div>
-                        </div>
-                        <div class="row small text-muted fw-bold">
-                            <div class="col-3">
-                                Nama Pedagang
-                            </div>
-                            <div class="col-9">
-                                {{ $mer->name }}
-                            </div>
-                        </div>
-                        <div class="row small text-muted fw-bold">
-                            <div class="col-3">
-                                Nomor Telepon
-                            </div>
-                            <div class="col-9">
-                                {{ $mer->phone }}
+
+    <div class="row">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-header">Pedagang</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ms-0">
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                        ID Pedagang
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $mer->id }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                        NIK Pedagang
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $mer->identity }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                        Nama Pedagang
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $mer->name }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                        Nomor Telepon
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $mer->phone }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header">Foto</div>
+                <div class="card-body text-center">
+                    <img class="mb-2" src="{{ asset('storage/photos/'.$mer->photo) }}" alt="Photo" style="max-width: 100%; height: auto;" />
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
 <!-- Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">

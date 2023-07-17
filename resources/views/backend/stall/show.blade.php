@@ -47,66 +47,66 @@
                         <div class="col-lg-12">
                             <div class="ms-0">
                                 <div class="row small text-muted fw-bold">
-                                    <div class="col-3">
+                                    <div class="col-6">
                                         ID
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-6">
                                         {{ $sta->id }}
                                     </div>
                                 </div>
                                 <div class="row small text-muted fw-bold">
-                                    <div class="col-3">
+                                    <div class="col-6">
                                         Jenis Tempat
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-6">
                                         {{ $sta->stall_type }}
                                     </div>
                                 </div>
                                 <div class="row small text-muted fw-bold">
-                                    <div class="col-3">
+                                    <div class="col-6">
                                         Lokasi
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-6">
                                         {{ $sta->location }}
                                     </div>
                                 </div>
                                 <div class="row small text-muted fw-bold">
-                                    <div class="col-3">
+                                    <div class="col-6">
                                         Kategori Luas
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-6">
                                         {{ $sta->stall_area }}
                                     </div>
                                 </div>
                                 <div class="row small text-muted fw-bold">
-                                    <div class="col-3">
+                                    <div class="col-6">
                                         Luas
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-6">
                                         {{ $sta->area }}
                                     </div>
                                 </div>
                                 <div class="row small text-muted fw-bold">
-                                    <div class="col-3">
+                                    <div class="col-6">
                                     Biaya Tahunan
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-6">
                                         {{ $sta->cost }}
                                     </div>
                                 </div>
                                 <div class="row small text-muted fw-bold">
-                                    <div class="col-3">
+                                    <div class="col-6">
                                     Retribusi Harian
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-6">
                                         {{ $sta->retribution }}
                                     </div>
                                 </div>
                                 <div class="row small text-muted fw-bold">
-                                    <div class="col-3">
+                                    <div class="col-6">
                                     Terpakai
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-6">
                                         {{ $sta->occupy }}
                                     </div>
                                 </div>
