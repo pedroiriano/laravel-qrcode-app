@@ -72,6 +72,14 @@
                                 </div>
                                 <div class="row small text-muted fw-bold">
                                     <div class="col-6">
+                                        Alamat
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $mer->address }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
                                         Nomor Telepon
                                     </div>
                                     <div class="col-6">
