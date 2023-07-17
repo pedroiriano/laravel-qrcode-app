@@ -54,20 +54,23 @@
                 </div>
             </div>
             <div class="card mb-4">
-                <div class="card-header">Luas</div>
-                <div class="card-body">
-                    <input class="form-control" id="area" name="area" type="number" placeholder="Masukkan Luas (contoh: 5)" />
-                </div>
-            </div>
-            <div class="card mb-4">
-                <div class="card-header">Lokasi</div>
-                <div class="card-body"><input class="form-control" id="location" name="location" type="text" placeholder="Lokasi Jualan" /></div>
-            </div>
-            <div class="card mb-4">
                 <div class="card-header">Jenis Jualan</div>
                 <div class="card-body"><input class="form-control" id="trade_type" name="trade_type" type="text" placeholder="Jenis Jualan (contoh: Sayuran)" /></div>
             </div>
             <div class="card mb-4">
+                <div class="card-header">Bayar Biaya Tahunan</div>
+                <div class="card-body"><input class="form-control" id="pay_cost" name="pay_cost" type="text" placeholder="Berapa Kali Biaya Tahunan (contoh: 2)" /></div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Tanggal Bayar</div>
+                <div class="card-body">
+                    <div class="input-group input-group-joined">
+                        <span class="input-group-text"><i data-feather="calendar"></i></span>
+                        <input class="form-control ps-0 pointer" id="litepickerSingleDate" name="start" placeholder="Pilih Tanggal" />
+                    </div>
+                </div>
+            </div>
+            {{-- <div class="card mb-4">
                 <div class="card-header">Status</div>
                 <div class="card-body">
                     <select class="form-control" id="status" name="status">
@@ -75,7 +78,7 @@
                         <option value="Tidak Aktif">Tidak Aktif</option>
                     </select>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <!-- Sticky Navigation-->
         <div class="col-lg-4">

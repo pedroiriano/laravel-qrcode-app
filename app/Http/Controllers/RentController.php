@@ -9,6 +9,7 @@ use App\Models\Merchant;
 use App\Models\Rent;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Carbon;
 
 class RentController extends Controller
 {
@@ -25,7 +26,8 @@ class RentController extends Controller
             $rens = DB::table('rents')
                 ->join('stalls', 'rents.stall_id', '=', 'stalls.id')
                 ->join('merchants', 'rents.merchant_id', '=', 'merchants.id')
-                ->select('rents.*', 'stalls.stall_type', 'stalls.area as stall_area', 'merchants.identity as merchant_identity', 'merchants.name as merchant_name', 'merchants.phone as merchant_phone')
+                ->leftJoin('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
+                ->select('rents.*', 'stalls.stall_type_id', 'stalls.location', 'stalls.area as stall_area', 'merchants.identity as merchant_identity', 'merchants.name as merchant_name', 'merchants.phone as merchant_phone', 'stall_types.stall_type')
                 ->get();
 
             return view('backend.rent.index')->with('user', $user)->with('rens', $rens);
@@ -40,9 +42,10 @@ class RentController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $stas = Stall::select(
-                DB::raw("CONCAT(stall_type, ' ', area) AS stall_info"), 'id')
-                ->pluck('stall_info', 'id');
+            $stas = DB::table('stalls')
+                ->join('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
+                ->select(DB::raw("CONCAT(stall_type, ' ', location, ' Luas: ', stalls.area, ' m2', ' Biaya: ', stalls.cost, '/tahun') AS stall_info"), 'stalls.id')
+                ->pluck('stall_info', 'stalls.id');
 
             $mers = Merchant::select(
                 DB::raw("CONCAT(identity, ' ', name) AS merchant_info"), 'id')
@@ -58,27 +61,30 @@ class RentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'area' => 'required',
-            'location' => 'required',
+            'trade_type' => 'required',
+            'pay_cost' => 'required',
+            'start' => 'required',
         ]);
 
         $user = auth()->user();
 
-        $image = QrCode::format('png')->size(200)->errorCorrection('H')->generate('https://pasarkemiridepok.pepeve.id/rent/'.$request['merchant']);
-
-        $image_name = 'img-'.time().'.png';
-        $image_path = '/img/qr-code/';
-        $output_image = $image_path.$image_name;
-        Storage::disk('public')->put($output_image, $image);
-
         $rent = new Rent;
         $rent->stall_id = $request->input('stall');
         $rent->merchant_id = $request->input('merchant');
-        $rent->area = $request->input('area');
-        $rent->location = $request->input('location');
         $rent->trade_type = $request->input('trade_type');
-        $rent->qr = $image_name;
-        $rent->status = $request->input('status');
+        $cost = Stall::select('cost')->where('id', $request->input('stall'))->first()->cost;
+        $total_cost = $cost * $request->input('pay_cost');
+        $rent->pay_cost = $total_cost;
+        $rent->start = $request->input('start');
+        $rent->end = Carbon::parse($rent->start)->addYear($request->input('pay_cost'));;
+        if (($request->input('pay_cost') === NULL) or ($request->input('pay_cost') === 0))
+        {
+            $rent->status = 'Tidak Aktif';
+        }
+        else
+        {
+            $rent->status = 'Aktif';
+        }
 
         $rent->save();
 
