@@ -38,41 +38,20 @@
                 <div class="card-header">Jenis Tempat</div>
                 <div class="card-body">
                     <select class="form-control" id="stall" name="stall">
-                        <option value="Kios" {{ $sta->stall_type == 'Kios' ? 'selected' : '' }}>
-                            Kios
-                        </option>
-                        <option value="Los" {{ $sta->stall_type == 'Los' ? 'selected' : '' }}>
-                            Los
-                        </option>
+                        @foreach ($stys as $sty_id => $sty)
+                        <option value="{{ $sty_id }}" {{ $sty_id == $sta->stall_type_id ? 'selected' : '' }}>{{ $sty }}</option>
+                        @endforeach
                     </select>
                 </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Lokasi</div>
+                <div class="card-body"><input class="form-control" id="location" name="location" type="text" placeholder="Lokasi Jualan" value="{{ $sta->location }}" /></div>
             </div>
             <div class="card mb-4">
                 <div class="card-header">Luas</div>
                 <div class="card-body">
-                    <select class="form-control" id="area" name="area">
-                        <option value="n/a" {{ $sta->area == 'n/a' ? 'selected' : '' }}>
-                            Pilih Luas
-                        </option>
-                        <option value="0 - 5 m2" {{ $sta->area == '0 - 5 m2' ? 'selected' : '' }}>
-                            0 - 5 m2
-                        </option>
-                        <option value="6 - 10 m2" {{ $sta->area == '6 - 10 m2' ? 'selected' : '' }}>
-                            6 - 10 m2
-                        </option>
-                        <option value="11 - 15 m2" {{ $sta->area == '11 - 15 m2' ? 'selected' : '' }}>
-                            11 - 15 m2
-                        </option>
-                        <option value="16 - 20 m2" {{ $sta->area == '16 - 20 m2' ? 'selected' : '' }}>
-                            16 - 20 m2
-                        </option>
-                    </select>
-                </div>
-            </div>
-            <div class="card mb-4">
-                <div class="card-header">Retribusi Harian</div>
-                <div class="card-body">
-                    <input class="form-control" id="retribution" name="retribution" type="number" placeholder="Masukkan Retribusi (contoh: 4500)" value="{{ $sta->retribution }}" />
+                    <input class="form-control" id="area" name="area" type="number" placeholder="Masukkan Luas Kios/Los dalam M2 (contoh: 5)" value="{{ $sta->area }}" />
                 </div>
             </div>
         </div>
@@ -94,19 +73,4 @@
     </div>
 </div>
 </form>
-@endsection
-
-@section('js')
-{{-- BEGIN::Triggered Form Section --}}
-<script>
-$("#stall").change(function() {
-  if ($(this).val() == "Kios") {
-    $('#area').show();
-  } else {
-    $('#area').hide();
-  }
-});
-$("#stall").trigger("change");
-</script>
-{{-- END::Triggered Form Section --}}
 @endsection

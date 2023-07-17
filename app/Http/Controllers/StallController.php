@@ -38,11 +38,11 @@ class StallController extends Controller
         $user = auth()->user();
 
         if(($user->role_id) == 1) {
-            $stas = StallType::select(
+            $stys = StallType::select(
                 DB::raw("CONCAT(stall_type, ' ', area) AS stall_info"), 'id')
                 ->pluck('stall_info', 'id');
 
-            return view('backend.stall.create')->with('user', $user)->with('stas', $stas);
+            return view('backend.stall.create')->with('user', $user)->with('stys', $stys);
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
@@ -136,7 +136,11 @@ class StallController extends Controller
         if(($user->role_id) == 1) {
             $sta = Stall::findOrFail($id);
 
-            return view('backend.stall.edit')->with('sta', $sta);
+            $stys = StallType::select(
+                DB::raw("CONCAT(stall_type, ' ', area) AS stall_info"), 'id')
+                ->pluck('stall_info', 'id');
+
+            return view('backend.stall.edit')->with('sta', $sta)->with('stys', $stys);
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
@@ -146,24 +150,46 @@ class StallController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'retribution' => 'required',
+            'location' => 'required',
+            'area' => 'required',
         ]);
 
-        if (($request->input('stall') === 'Kios') && ($request->input('area') === 'n/a'))
+        $type = $request->input('stall');
+        $area = $request->input('area');
+        $type = StallType::where('id', $type)->first()->stall_type;
+        if ($type === 'Kios')
         {
-            return back()->with('status', 'Maaf Pilih Luas');
+            $cost = 600000 * $area;
+        }
+        else if ($type === 'Los')
+        {
+            $cost = 360000 * $area;
+        }
+        else
+        {
+            $cost = 0 * $area;
+        }
+
+        if ((DB::table('stalls')->select('stall_type_id')->where('id', $id)->first()->stall_type_id == $request->input('stall')) && (DB::table('stalls')->select('location')->where('id', $id)->first()->location == $request->input('location')))
+        {
+            $stall = Stall::findOrFail($id);
+            $stall->stall_type_id = $request->input('stall');
+            $stall->location = $request->input('location');
+            $stall->area = $request->input('area');
+            $stall->cost = $cost;
         }
         else
         {
             if ((DB::table('stalls')
-            ->where('stall_type', $request->input('stall'))
-            ->where('area', $request->input('area'))
+            ->where('stall_type_id', $request->input('stall'))
+            ->where('location', $request->input('location'))
             ->first()) === NULL)
             {
                 $stall = Stall::findOrFail($id);
-                $stall->stall_type = $request->input('stall');
+                $stall->stall_type_id = $request->input('stall');
+                $stall->location = $request->input('location');
                 $stall->area = $request->input('area');
-                $stall->retribution = $request->input('retribution');
+                $stall->cost = $cost;
             }
             else
             {

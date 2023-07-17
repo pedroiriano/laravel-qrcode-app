@@ -37,8 +37,8 @@
                 <div class="card-header">Jenis Tempat</div>
                 <div class="card-body">
                     <select class="form-control" id="stall" name="stall">
-                        @foreach ($stas as $sta_id => $sta)
-                        <option value="{{ $sta_id }}">{{ $sta }}</option>
+                        @foreach ($stys as $sty_id => $sty)
+                        <option value="{{ $sty_id }}">{{ $sty }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -72,19 +72,4 @@
     </div>
 </div>
 </form>
-@endsection
-
-@section('js')
-{{-- BEGIN::Triggered Form Section --}}
-{{-- <script>
-$("#stall").change(function() {
-  if ($(this).val() == "Kios") {
-    $('#area').show();
-  } else {
-    $('#area').hide();
-  }
-});
-$("#stall").trigger("change");
-</script> --}}
-{{-- END::Triggered Form Section --}}
 @endsection
