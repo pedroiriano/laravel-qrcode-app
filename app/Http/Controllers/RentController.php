@@ -97,7 +97,8 @@ class RentController extends Controller
             $ren = DB::table('rents')
                 ->join('stalls', 'rents.stall_id', '=', 'stalls.id')
                 ->join('merchants', 'rents.merchant_id', '=', 'merchants.id')
-                ->select('rents.*', 'stalls.stall_type', 'stalls.area as stall_area', 'stalls.retribution as stall_retribution', 'merchants.identity as merchant_identity', 'merchants.name as merchant_name', 'merchants.phone as merchant_phone')
+                ->leftJoin('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
+                ->select('rents.*', 'stalls.stall_type_id', 'stalls.location', 'stalls.area as stall_area', 'merchants.identity as merchant_identity', 'merchants.name as merchant_name', 'merchants.phone as merchant_phone', 'stall_types.stall_type', 'stall_types.retribution as stall_retribution')
                 ->first();
 
             return view('backend.rent.show')->with('ren', $ren);
