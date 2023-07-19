@@ -281,6 +281,11 @@ class RentController extends Controller
     public function destroy($id)
     {
         try {
+            $ren_stall_id = Rent::select('stall_id')->where('id', $id)->first()->stall_id;
+            $ren_stall = Stall::findOrFail($ren_stall_id);
+            $ren_stall->occupy = 'Tidak';
+            $ren_stall->save();
+
             $ren = Rent::findOrFail($id);
             $ren->delete();
 
