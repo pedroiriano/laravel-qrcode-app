@@ -46,7 +46,7 @@
                 <div class="card-header">Foto Profil</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="{{ asset('css/assets/img/illustrations//profiles/profile-1.png') }}" alt="" />
+                    <img class="img-account-profile rounded-circle mb-2" src="{{ asset('images/illustrations/user-sidata.png') }}" alt="" />
                 </div>
             </div>
         </div>
