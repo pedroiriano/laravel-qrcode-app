@@ -57,10 +57,10 @@
                 <div class="card-header">Jenis Jualan</div>
                 <div class="card-body"><input class="form-control" id="trade_type" name="trade_type" type="text" placeholder="Jenis Jualan (contoh: Sayuran)" /></div>
             </div>
-            <div class="card mb-4">
+            {{-- <div class="card mb-4">
                 <div class="card-header">Bayar Biaya Tahunan</div>
                 <div class="card-body"><input class="form-control" id="pay_cost" name="pay_cost" type="text" placeholder="Berapa Kali Biaya Tahunan (contoh: 2)" /></div>
-            </div>
+            </div> --}}
             <div class="card mb-4">
                 <div class="card-header">Tanggal Bayar</div>
                 <div class="card-body">

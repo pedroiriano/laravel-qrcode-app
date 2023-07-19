@@ -45,6 +45,7 @@ class RentController extends Controller
             $stas = DB::table('stalls')
                 ->join('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
                 ->select(DB::raw("CONCAT(stall_type, ' ', location, ' Luas: ', stalls.area, ' m2', ' Biaya: ', stalls.cost, '/tahun') AS stall_info"), 'stalls.id')
+                ->where('stalls.occupy', 'Tidak')
                 ->pluck('stall_info', 'stalls.id');
 
             $mers = Merchant::select(
@@ -62,7 +63,7 @@ class RentController extends Controller
     {
         $this->validate($request, [
             'trade_type' => 'required',
-            'pay_cost' => 'required',
+            // 'pay_cost' => 'required',
             'start' => 'required',
         ]);
 
@@ -73,17 +74,37 @@ class RentController extends Controller
         $rent->merchant_id = $request->input('merchant');
         $rent->trade_type = $request->input('trade_type');
         $cost = Stall::select('cost')->where('id', $request->input('stall'))->first()->cost;
-        $total_cost = $cost * $request->input('pay_cost');
-        $rent->pay_cost = $total_cost;
+        // $total_cost = $cost * $request->input('pay_cost');
+        // $rent->pay_cost = $total_cost;
         $rent->start = $request->input('start');
-        $rent->end = Carbon::parse($rent->start)->addYear($request->input('pay_cost'));;
-        if (($request->input('pay_cost') === NULL) or ($request->input('pay_cost') === 0))
+        $rent->end = Carbon::parse($rent->start)->addYear(1);
+        // $rent->end = Carbon::parse($rent->start)->addYear($request->input('pay_cost'));
+        // if (($request->input('pay_cost') === NULL) or ($request->input('pay_cost') === 0))
+        // {
+        //     $rent->status = 'Tidak Aktif';
+        // }
+        // else
+        // {
+        //     $rent->status = 'Aktif';
+        // }
+
+        if (($request->input('start') === NULL) or ($request->input('start') === 0))
         {
+            $rent->pay_cost = 0;
             $rent->status = 'Tidak Aktif';
+
+            $stall = Stall::findOrFail($request->input('stall'));
+            $stall->occupy = 'Tidak';
+            $stall->save();
         }
         else
         {
+            $rent->pay_cost = $cost;
             $rent->status = 'Aktif';
+
+            $stall = Stall::findOrFail($request->input('stall'));
+            $stall->occupy = 'Ya';
+            $stall->save();
         }
 
         $rent->save();
@@ -115,15 +136,18 @@ class RentController extends Controller
         if(($user->role_id) == 1) {
             $ren = Rent::findOrFail($id);
 
-            $stas = Stall::select(
-                DB::raw("CONCAT(stall_type, ' ', area) AS stall_info"), 'id')
-                ->pluck('stall_info', 'id');
+            $stas = DB::table('stalls')
+                ->join('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
+                ->select(DB::raw("CONCAT(stall_type, ' ', location, ' Luas: ', stalls.area, ' m2', ' Biaya: ', stalls.cost, '/tahun') AS stall_info"), 'stalls.id')
+                ->where('occupy', 'Tidak')
+                ->orWhere('stalls.id', $ren->stall_id)
+                ->pluck('stall_info', 'stalls.id');
 
             $mers = Merchant::select(
                 DB::raw("CONCAT(identity, ' ', name) AS merchant_info"), 'id')
                 ->pluck('merchant_info', 'id');
 
-            return view('backend.rent.edit')->with('ren', $ren)->with('stas', $stas)->with('mers', $mers);
+            return view('backend.rent.edit')->with('user', $user)->with('stas', $stas)->with('mers', $mers)->with('ren', $ren);
         }
         else {
             return back()->with('status', 'Tidak Punya Akses');
@@ -133,36 +157,115 @@ class RentController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'area' => 'required',
-            'location' => 'required',
             'trade_type' => 'required',
+            // 'pay_cost' => 'required',
+            'start' => 'required',
         ]);
 
-        if ((DB::table('rents')->select('stall_id')->where('id', $id)->first()->stall_id == $request->input('stall')) && (DB::table('rents')->select('merchant_id')->where('id', $id)->first()->merchant_id == $request->input('merchant')) && (DB::table('rents')->select('location')->where('id', $id)->first()->location == $request->input('location')))
+        if ((DB::table('rents')->select('stall_id')->where('id', $id)->first()->stall_id == $request->input('stall')) && (DB::table('rents')->select('merchant_id')->where('id', $id)->first()->merchant_id == $request->input('merchant')))
         {
             $rent = Rent::findOrFail($id);
             $rent->stall_id = $request->input('stall');
             $rent->merchant_id = $request->input('merchant');
-            $rent->area = $request->input('area');
-            $rent->location = $request->input('location');
             $rent->trade_type = $request->input('trade_type');
-            $rent->status = $request->input('status');
+            $cost = Stall::select('cost')->where('id', $request->input('stall'))->first()->cost;
+            $rent->start = $request->input('start');
+            $rent->end = Carbon::parse($rent->start)->addYear(1);
+
+            if (($request->input('start') === NULL) or ($request->input('start') === 0))
+            {
+                $rent->pay_cost = 0;
+                $rent->status = 'Tidak Aktif';
+
+                $stall = Stall::findOrFail($request->input('stall'));
+                $stall->occupy = 'Tidak';
+                $stall->save();
+            }
+            else
+            {
+                $rent->pay_cost = $cost;
+                $rent->status = 'Aktif';
+
+                $stall = Stall::findOrFail($request->input('stall'));
+                $stall->occupy = 'Ya';
+                $stall->save();
+            }
         }
         else
         {
             if ((DB::table('rents')
             ->where('stall_id', $request->input('stall'))
             ->where('merchant_id', $request->input('merchant'))
-            ->where('location', $request->input('location'))
             ->first()) === NULL)
             {
-                $rent = Rent::findOrFail($id);
-                $rent->stall_id = $request->input('stall');
-                $rent->merchant_id = $request->input('merchant');
-                $rent->area = $request->input('area');
-                $rent->location = $request->input('location');
-                $rent->trade_type = $request->input('trade_type');
-                $rent->status = $request->input('status');
+                if ((DB::table('rents')->select('stall_id')->where('id', $id)->first()->stall_id == $request->input('stall')))
+                {
+                    $rent = Rent::findOrFail($id);
+                    $rent->stall_id = $request->input('stall');
+                    $rent->merchant_id = $request->input('merchant');
+                    $rent->trade_type = $request->input('trade_type');
+                    $cost = Stall::select('cost')->where('id', $request->input('stall'))->first()->cost;
+                    $rent->start = $request->input('start');
+                    $rent->end = Carbon::parse($rent->start)->addYear(1);
+
+                    if (($request->input('start') === NULL) or ($request->input('start') === 0))
+                    {
+                        $rent->pay_cost = 0;
+                        $rent->status = 'Tidak Aktif';
+
+                        $stall = Stall::findOrFail($request->input('stall'));
+                        $stall->occupy = 'Tidak';
+                        $stall->save();
+                    }
+                    else
+                    {
+                        $rent->pay_cost = $cost;
+                        $rent->status = 'Aktif';
+
+                        $stall = Stall::findOrFail($request->input('stall'));
+                        $stall->occupy = 'Ya';
+                        $stall->save();
+                    }
+                }
+                else
+                {
+                    $rent = Rent::findOrFail($id);
+                    $rent->stall_id = $request->input('stall');
+                    $rent->merchant_id = $request->input('merchant');
+                    $rent->trade_type = $request->input('trade_type');
+                    $cost = Stall::select('cost')->where('id', $request->input('stall'))->first()->cost;
+                    $rent->start = $request->input('start');
+                    $rent->end = Carbon::parse($rent->start)->addYear(1);
+
+                    if (($request->input('start') === NULL) or ($request->input('start') === 0))
+                    {
+                        $rent->pay_cost = 0;
+                        $rent->status = 'Tidak Aktif';
+
+                        $stall = Stall::findOrFail($request->input('stall'));
+                        $stall->occupy = 'Tidak';
+                        $stall->save();
+
+                        $stall_old_id = Rent::select('stall_id')->where('id', $id)->first()->stall_id;
+                        $stall_old = Stall::findOrFail($stall_old_id);
+                        $stall_old->occupy = 'Tidak';
+                        $stall_old->save();
+                    }
+                    else
+                    {
+                        $rent->pay_cost = $cost;
+                        $rent->status = 'Aktif';
+
+                        $stall = Stall::findOrFail($request->input('stall'));
+                        $stall->occupy = 'Ya';
+                        $stall->save();
+
+                        $stall_old_id = Rent::select('stall_id')->where('id', $id)->first()->stall_id;
+                        $stall_old = Stall::findOrFail($stall_old_id);
+                        $stall_old->occupy = 'Tidak';
+                        $stall_old->save();
+                    }
+                }
             }
             else
             {
