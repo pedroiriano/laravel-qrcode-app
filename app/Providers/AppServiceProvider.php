@@ -30,8 +30,8 @@ class AppServiceProvider extends ServiceProvider
 
         $pages_data = array(
             'all_users' => $all_users,
-            'title' => 'Selamat Datang di SIDONNA',
-            'description' => 'Sistem Data Online Pedagang di UPTD Pasar Kemirimuka Kota Depok'
+            'title' => 'Selamat Datang di Sidita',
+            'description' => 'Sistem Digital Data Pedagang di UPTD Pasar Kemirimuka Kota Depok'
         );
 
         View::share($pages_data);

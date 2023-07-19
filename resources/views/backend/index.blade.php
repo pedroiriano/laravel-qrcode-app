@@ -13,9 +13,9 @@
                 <div class="col-auto mt-4">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="activity"></i></div>
-                        Beranda Admin SIDONNA
+                        Beranda Admin Sidita
                     </h1>
-                    <div class="page-header-subtitle">Beranda Admin SIDONNA UPTD Pasar Kemirimuka Kota Depok</div>
+                    <div class="page-header-subtitle">Beranda Admin Sidita UPTD Pasar Kemirimuka Kota Depok</div>
                 </div>
             </div>
         </div>
@@ -30,8 +30,8 @@
                     <div class="row align-items-center">
                         <div class="col-xl-8 col-xxl-12">
                             <div class="text-center text-xl-start text-xxl-center mb-4 mb-xl-0 mb-xxl-4">
-                                <h1 class="text-primary">Selamat Datang di SIDONNA</h1>
-                                <p class="text-gray-700 mb-0">Manajemen Data dan Sistem Data Online Pedagang serta Retribusi Kios/Los di UPTD Pasar Kemirimuka Kota Depok</p>
+                                <h1 class="text-primary">Selamat Datang di Sidita</h1>
+                                <p class="text-gray-700 mb-0">Sistem Digital Data Pedagang di UPTD Pasar Kemirimuka Kota Depok</p>
                             </div>
                         </div>
                         <div class="col-xl-4 col-xxl-12 text-center"><img class="img-fluid" src="{{ asset('css/assets/img/illustrations/at-work.svg') }}" style="max-width: 26rem" /></div>

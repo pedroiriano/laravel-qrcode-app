@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Sistem Data Online Pedagang di UPTD Pasar Kemirimuka Kota Depok">
+<meta name="description" content="Sistem Digital Data Pedagang di UPTD Pasar Kemirimuka Kota Depok">
 <meta name="keywords" content="aplikasi, retribusi, aplikasi retribusi, pasar, aplikasi retribusi pasar, kota depok, sistem data online pedagang di uptd pasar kemirimuka kota depok">
 {{-- END::Google Search Meta --}}
 
@@ -27,7 +27,7 @@
 {{-- END::CSRF Token --}}
 
 {{-- BEGIN::Title --}}
-<title>{{ config('app.name', 'SIDONNA') }}</title>
+<title>{{ config('app.name', 'SIDITA') }}</title>
 {{-- END::Title --}}
 
 {{-- BEGIN::Data Tables --}}

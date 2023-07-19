@@ -7,7 +7,7 @@
 @section('content')
 <section id="commodity-price" class="bg-light py-10">
     <div class="container px-3">
-        <h2 class="mb-4">Daftar Kios atau Los</h2>
+        <h2 class="mb-4">Daftar Sewa Kios atau Los</h2>
         <div class="row gx-3">
             @if (!empty($rens))
                 @foreach ($rens as $ren)
