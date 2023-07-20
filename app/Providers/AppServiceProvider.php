@@ -26,7 +26,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $all_users = User::paginate(3);
+        if (Schema::hasTable('users'))
+        {
+            $all_users = User::paginate(3);
+        } else
+        {
+            $all_users = collect();
+        }
 
         $pages_data = array(
             'all_users' => $all_users,
