@@ -69,3 +69,11 @@ Route::get('/rent/{rent}', [RentController::class, 'show'])->name('rent-show');
 Route::get('/rent/{rent}/edit', [RentController::class, 'edit'])->name('rent-edit');
 Route::put('/rent/{rent}', [RentController::class, 'update'])->name('rent-update');
 Route::delete('/rent/{rent}', [RentController::class, 'destroy'])->name('rent-delete');
+
+Route::get('/retribution', [RentController::class, 'index'])->name('retribution');
+Route::get('/retribution/create', [RentController::class, 'create'])->name('retribution-form');
+Route::post('/retribution', [RentController::class, 'store'])->name('retribution-store');
+Route::get('/retribution/{retribution}', [RentController::class, 'show'])->name('retribution-show');
+Route::get('/retribution/{retribution}/edit', [RentController::class, 'edit'])->name('retribution-edit');
+Route::put('/retribution/{retribution}', [RentController::class, 'update'])->name('retribution-update');
+Route::delete('/retribution/{retribution}', [RentController::class, 'destroy'])->name('retribution-delete');
