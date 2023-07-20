@@ -34,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
             $all_users = collect();
         }
 
+        
         $pages_data = array(
             'all_users' => $all_users,
             'title' => 'Selamat Datang di Sidita',
