@@ -57,7 +57,7 @@
             <div class="card mb-4">
                 <div class="card-header">Retribusi Harian</div>
                 <div class="card-body">
-                    <input class="form-control" id="retribution" name="retribution" type="number" placeholder="Masukkan Retribusi (contoh: 4500)" />
+                    <input class="form-control" id="retribution" name="retribution" type="number" placeholder="Masukkan Retribusi dalam Rupiah (contoh: 4500)" />
                 </div>
             </div>
         </div>

@@ -63,11 +63,14 @@
                     @if ((auth()->user()->role_id) == 1)
                         @if (count($stys) > 0)
                             @foreach ($stys as $sty)
+                                @php
+                                    $retribution = "Rp. " . number_format($sty->retribution, 0, ',', '.');
+                                @endphp
                                 <tr>
                                     <td>{{ $sty->id }}</td>
                                     <td>{{ $sty->stall_type }}</td>
                                     <td>{{ $sty->area }}</td>
-                                    <td>{{ $sty->retribution }}</td>
+                                    <td>{{ $retribution }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
                                             <a class="text-decoration-none text-muted" href="/stall-type/{{ $sty->id }}">

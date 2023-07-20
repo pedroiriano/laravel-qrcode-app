@@ -43,6 +43,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ms-0">
+                        @php
+                            $retribution = "Rp. " . number_format($sty->retribution, 0, ',', '.');
+                        @endphp
                         <div class="row small text-muted fw-bold">
                             <div class="col-6">
                                 ID Jenis Tempat
@@ -72,7 +75,7 @@
                                Retribusi Tempat
                             </div>
                             <div class="col-6">
-                                {{ $sty->retribution }}
+                                {{ $retribution }}
                             </div>
                         </div>
                     </div>
