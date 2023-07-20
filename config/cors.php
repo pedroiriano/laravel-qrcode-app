@@ -19,9 +19,19 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    // 'allowed_origins' => [
+    //     'https://pasarkemiridepok.pepeve.id',
+    //     'https://cdnjs.cloudflare.com'
+    // ],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins' => [
+        'http://127.0.0.1:8000',
+        'https://cdnjs.cloudflare.com'
+    ],
+
+    'allowed_origins_patterns' => [
+        '/^https:\/\/cdnjs\.cloudflare\.com\/.*$/',
+    ],
 
     'allowed_headers' => ['*'],
 
