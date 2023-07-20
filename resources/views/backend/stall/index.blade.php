@@ -67,12 +67,15 @@
                     @if ((auth()->user()->role_id) == 1)
                         @if (count($stas) > 0)
                             @foreach ($stas as $sta)
+                                @php
+                                    $cost = "Rp. " . number_format($sta->cost, 0, ',', '.');
+                                @endphp
                                 <tr>
                                     <td>{{ $sta->id }}</td>
                                     <td>{{ $sta->stall_type }}</td>
                                     <td>{{ $sta->location }}</td>
-                                    <td>{{ $sta->area }}</td>
-                                    <td>{{ $sta->cost }}</td>
+                                    <td>{{ $sta->area }} m2</td>
+                                    <td>{{ $cost }}</td>
                                     <td>{{ $sta->occupy }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">

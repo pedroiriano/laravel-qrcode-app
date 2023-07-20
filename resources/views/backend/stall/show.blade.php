@@ -46,6 +46,10 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="ms-0">
+                                @php
+                                    $cost = "Rp. " . number_format($sta->cost, 0, ',', '.');
+                                    $retribution = "Rp. " . number_format($sta->retribution, 0, ',', '.');
+                                @endphp
                                 <div class="row small text-muted fw-bold">
                                     <div class="col-6">
                                         ID
@@ -83,7 +87,7 @@
                                         Luas
                                     </div>
                                     <div class="col-6">
-                                        {{ $sta->area }}
+                                        {{ $sta->area }} m2
                                     </div>
                                 </div>
                                 <div class="row small text-muted fw-bold">
@@ -91,7 +95,7 @@
                                     Biaya Tahunan
                                     </div>
                                     <div class="col-6">
-                                        {{ $sta->cost }}
+                                        {{ $cost }}
                                     </div>
                                 </div>
                                 <div class="row small text-muted fw-bold">
@@ -99,7 +103,7 @@
                                     Retribusi Harian
                                     </div>
                                     <div class="col-6">
-                                        {{ $sta->retribution }}
+                                        {{ $retribution }}
                                     </div>
                                 </div>
                                 <div class="row small text-muted fw-bold">
