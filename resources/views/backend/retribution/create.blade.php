@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/backend/styles.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
 @endsection
 
 @section('content')
@@ -13,13 +14,13 @@
                 <div class="col-auto mb-3">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="file-plus"></i></div>
-                        Tambah Sewa
+                        Tambah Retribusi
                     </h1>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="{{ route('rent') }}">
+                    <a class="btn btn-sm btn-light text-primary" href="{{ route('retribution') }}">
                         <i class="me-1" data-feather="arrow-left"></i>
-                        Kembali ke Tabel Sewa
+                        Kembali ke Tabel Retribusi
                     </a>
                 </div>
             </div>
@@ -27,58 +28,43 @@
     </div>
 </header>
 <!-- Main page content-->
-<form action="{{ route('rent-store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('retribution-store') }}" method="POST" enctype="multipart/form-data">
 @csrf
 <div class="container-fluid px-4">
     @include('inc.alert-message')
     <div class="row gx-4">
         <div class="col-lg-8">
             <div class="card mb-4">
-                <div class="card-header">Jenis Tempat</div>
+                <div class="card-header">Tempat Sewa</div>
                 <div class="card-body">
-                    <select class="form-control" id="stall" name="stall">
-                        @foreach ($stas as $sta_id => $sta)
-                        <option value="{{ $sta_id }}">{{ $sta }}</option>
+                    <select class="form-control" id="rent" name="rent">
+                        @foreach ($rens as $ren_id => $ren)
+                        <option value="{{ $ren_id }}">{{ $ren }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
             <div class="card mb-4">
-                <div class="card-header">Pedagang</div>
+                <div class="card-header">Jumlah Hutang</div>
                 <div class="card-body">
-                    <select class="form-control" id="merchant" name="merchant">
-                        @foreach ($mers as $mer_id => $mer)
-                        <option value="{{ $mer_id }}">{{ $mer }}</option>
-                        @endforeach
-                    </select>
+                    <input class="form-control" id="due_amount" name="due_amount" type="number" placeholder="Jumlah Hutang dalam Rupiah" disabled />
                 </div>
             </div>
             <div class="card mb-4">
-                <div class="card-header">Jenis Jualan</div>
-                <div class="card-body"><input class="form-control" id="trade_type" name="trade_type" type="text" placeholder="Jenis Jualan (contoh: Sayuran)" /></div>
+                <div class="card-header">Jumlah Retribusi</div>
+                <div class="card-body">
+                    <input class="form-control" id="amount" name="amount" type="number" placeholder="Masukkan Retribusi dalam Rupiah (contoh: 4500)" />
+                </div>
             </div>
-            {{-- <div class="card mb-4">
-                <div class="card-header">Bayar Biaya Tahunan</div>
-                <div class="card-body"><input class="form-control" id="pay_cost" name="pay_cost" type="text" placeholder="Berapa Kali Biaya Tahunan (contoh: 2)" /></div>
-            </div> --}}
             <div class="card mb-4">
                 <div class="card-header">Tanggal Bayar</div>
                 <div class="card-body">
                     <div class="input-group input-group-joined">
                         <span class="input-group-text"><i data-feather="calendar"></i></span>
-                        <input class="form-control ps-0 pointer" id="litepickerSingleDate" name="start" placeholder="Pilih Tanggal" />
+                        <input class="form-control pointer" id="datepicker" name="retribution_date" placeholder="Pilih Tanggal" />
                     </div>
                 </div>
             </div>
-            {{-- <div class="card mb-4">
-                <div class="card-header">Status</div>
-                <div class="card-body">
-                    <select class="form-control" id="status" name="status">
-                        <option value="Aktif" selected>Aktif</option>
-                        <option value="Tidak Aktif">Tidak Aktif</option>
-                    </select>
-                </div>
-            </div> --}}
         </div>
         <!-- Sticky Navigation-->
         <div class="col-lg-4">
@@ -98,4 +84,41 @@
     </div>
 </div>
 </form>
+@endsection
+
+@section('js')
+<script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+$("#rent").change(function() {
+    var rentId = $(this).val();
+
+    $.ajax({
+        url: "{{ route('get-due-amount') }}",
+        type: "POST",
+        data: { rent_id: rentId },
+        success: function(response) {
+            $('#due_amount').val(response.due_amount);
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+});
+
+$("#rent").trigger("change");
+</script>
+
+<script>
+    const picker = new easepick.create({
+        element: document.getElementById('datepicker'),
+        css: [
+            'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
+        ],
+    });
+</script>
 @endsection

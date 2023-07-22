@@ -77,3 +77,4 @@ Route::get('/retribution/{retribution}', [RetributionController::class, 'show'])
 Route::get('/retribution/{retribution}/edit', [RetributionController::class, 'edit'])->name('retribution-edit');
 Route::put('/retribution/{retribution}', [RetributionController::class, 'update'])->name('retribution-update');
 Route::delete('/retribution/{retribution}', [RetributionController::class, 'destroy'])->name('retribution-delete');
+Route::post('/get-due-amount', [RetributionController::class, 'getDueAmount'])->name('get-due-amount');

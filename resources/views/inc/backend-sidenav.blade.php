@@ -30,11 +30,11 @@
                 </a>
                 <div class="collapse" id="collapseCommodities" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{{ route('retribution') }}">
                             Tabel Retribusi
                         </a>
                         @if (auth()->user()->role_id == 1)
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{{ route('retribution-form') }}">
                             Perbarui Retribusi
                         </a>
                         @endif

@@ -46,20 +46,20 @@
                         <th class="text-center">ID</th>
                         <th class="text-center">Pedagang</th>
                         <th class="text-center">Lokasi</th>
-                        <th class="text-center">Jenis Jualan</th>
                         <th class="text-center">Retribusi</th>
-                        <th class="text-center">Status</th>
+                        <th class="text-center">Bayar</th>
+                        <th class="text-center">Hutang</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th class="text-center">ID</th>
-                        <th class="text-center">Luas</th>
+                        <th class="text-center">Pedagang</th>
                         <th class="text-center">Lokasi</th>
-                        <th class="text-center">Jenis Jualan</th>
                         <th class="text-center">Retribusi</th>
-                        <th class="text-center">Status</th>
+                        <th class="text-center">Bayar</th>
+                        <th class="text-center">Hutang</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </tfoot>
@@ -70,11 +70,10 @@
                                 <tr>
                                     <td>{{ $ret->id }}</td>
                                     <td>{{ $ret->merchant_name }}</td>
-                                    <td>{{ $ret->stall_type }}</td>
-                                    <td>{{ $ret->stall_area }}</td>
                                     <td>{{ $ret->location }}</td>
-                                    <td>{{ $ret->trade_type }}</td>
-                                    <td>{{ $ret->status }}</td>
+                                    <td>{{ $ret->retribution }}</td>
+                                    <td>{{ $ret->amount }}</td>
+                                    <td>{{ $ret->due_amount }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
                                             <a class="text-decoration-none text-muted" href="/retribution/{{ $ret->id }}">
