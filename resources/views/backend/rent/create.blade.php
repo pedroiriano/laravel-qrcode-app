@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/backend/styles.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
 @endsection
 
 @section('content')
@@ -66,7 +67,7 @@
                 <div class="card-body">
                     <div class="input-group input-group-joined">
                         <span class="input-group-text"><i data-feather="calendar"></i></span>
-                        <input class="form-control ps-0 pointer" id="litepickerSingleDate" name="start" placeholder="Pilih Tanggal" />
+                        <input class="form-control pointer" id="datepicker" name="start" placeholder="Pilih Tanggal" />
                     </div>
                 </div>
             </div>
@@ -98,4 +99,15 @@
     </div>
 </div>
 </form>
+@endsection
+
+@section('js')
+<script>
+    const picker = new easepick.create({
+        element: document.getElementById('datepicker'),
+        css: [
+            'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
+        ],
+    });
+</script>
 @endsection

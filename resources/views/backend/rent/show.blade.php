@@ -37,55 +37,154 @@
 <!-- Main page content-->
 <div class="container-fluid px-4">
     @include('inc.alert-message')
-    <div class="card">
-        <div class="card-header">Informasi Tempat</div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ms-0">
-                        <div class="row small text-muted fw-bold">
-                            <div class="col-6">
-                                Jenis Tempat
-                            </div>
-                            <div class="col-6">
-                                {{ $ren->stall_type }}
-                            </div>
-                        </div>
-                        <div class="row small text-muted fw-bold">
-                            <div class="col-6">
-                                Luas Tempat
-                            </div>
-                            <div class="col-6">
-                                {{ $ren->stall_area }}
-                            </div>
-                        </div>
-                        <div class="row small text-muted fw-bold">
-                            <div class="col-6">
-                               Retribusi Tempat
-                            </div>
-                            <div class="col-6">
-                                {{ $ren->stall_retribution }}
+
+    <div class="row">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-header">Informasi Tempat</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ms-0">
+                                @php
+                                    $cost = "Rp. " . number_format($ren->cost, 0, ',', '.');
+                                    $retribution = "Rp. " . number_format($ren->stall_retribution, 0, ',', '.');
+                                @endphp
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                        Jenis Tempat
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $ren->stall_type }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                        Lokasi
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $ren->location }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                        Kategori Luas
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $ren->stall_type_area }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                        Luas
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $ren->stall_area }} m2
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                    Biaya Tahunan
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $cost }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                    Retribusi Harian
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $retribution }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                    Terpakai
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $ren->occupy }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header">QR Code</div>
+                <div class="card-body text-center">
+                    <img class="mb-2" src="{{ asset('storage/img/qr-code/'.$ren->qr) }}" alt="Qr Code" />
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="row mt-3">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-header">Pedagang</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ms-0">
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                        NIK Pedagang
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $ren->merchant_identity }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                        Nama Pedagang
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $ren->merchant_name }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                        Alamat
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $ren->merchant_address }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                        Nomor Telepon
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $ren->merchant_phone }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header">Foto</div>
+                <div class="card-body text-center">
+                    <img class="mb-2" src="{{ asset('storage/photos/'.$ren->merchant_photo) }}" alt="Photo" style="max-width: 100%; height: auto;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card mt-3">
-        <div class="card-header">Informasi Pedagang</div>
+        <div class="card-header">Informasi Sewa</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ms-0">
-                        <div class="row small text-muted fw-bold">
-                            <div class="col-6">
-                                NIK Pedagang
-                            </div>
-                            <div class="col-6">
-                                {{ $ren->merchant_identity }}
-                            </div>
-                        </div>
+
                         <div class="row small text-muted fw-bold">
                             <div class="col-6">
                                 Nama Pedagang
@@ -94,25 +193,6 @@
                                 {{ $ren->merchant_name }}
                             </div>
                         </div>
-                        <div class="row small text-muted fw-bold">
-                            <div class="col-6">
-                               Telepon Pedagang
-                            </div>
-                            <div class="col-6">
-                                {{ $ren->merchant_phone }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card mt-3">
-        <div class="card-header">Informasi Sewa</div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ms-0">
                         <div class="row small text-muted fw-bold">
                             <div class="col-6">
                                 Lokasi
@@ -127,6 +207,30 @@
                             </div>
                             <div class="col-6">
                                 {{ $ren->trade_type }}
+                            </div>
+                        </div>
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-6">
+                                Mulai Sewa
+                            </div>
+                            <div class="col-6">
+                                {{ $ren->start }}
+                            </div>
+                        </div>
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-6">
+                               Selesai Sewa
+                            </div>
+                            <div class="col-6">
+                                {{ $ren->end }}
+                            </div>
+                        </div>
+                        <div class="row small text-muted fw-bold">
+                            <div class="col-6">
+                                Biaya Tahunan
+                            </div>
+                            <div class="col-6">
+                                {{ $cost }}
                             </div>
                         </div>
                         <div class="row small text-muted fw-bold">

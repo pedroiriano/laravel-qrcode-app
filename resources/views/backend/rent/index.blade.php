@@ -73,7 +73,7 @@
                                     <td>{{ $ren->id }}</td>
                                     <td>{{ $ren->merchant_name }}</td>
                                     <td>{{ $ren->stall_type }}</td>
-                                    <td>{{ $ren->stall_area }}</td>
+                                    <td>{{ $ren->stall_area }} m2</td>
                                     <td>{{ $ren->location }}</td>
                                     <td>{{ $ren->trade_type }}</td>
                                     <td>{{ $ren->status }}</td>

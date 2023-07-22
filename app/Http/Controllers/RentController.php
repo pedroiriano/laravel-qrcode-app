@@ -119,7 +119,7 @@ class RentController extends Controller
                 ->join('stalls', 'rents.stall_id', '=', 'stalls.id')
                 ->join('merchants', 'rents.merchant_id', '=', 'merchants.id')
                 ->leftJoin('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
-                ->select('rents.*', 'stalls.stall_type_id', 'stalls.location', 'stalls.area as stall_area', 'merchants.identity as merchant_identity', 'merchants.name as merchant_name', 'merchants.phone as merchant_phone', 'stall_types.stall_type', 'stall_types.retribution as stall_retribution')
+                ->select('rents.*', 'stalls.stall_type_id', 'stalls.location', 'stalls.area as stall_area', 'stalls.cost', 'stalls.qr', 'stalls.occupy', 'merchants.identity as merchant_identity', 'merchants.name as merchant_name', 'merchants.address as merchant_address', 'merchants.phone as merchant_phone', 'merchants.photo as merchant_photo', 'stall_types.stall_type', 'stall_types.area as stall_type_area', 'stall_types.retribution as stall_retribution')
                 ->where('rents.id', $id)
                 ->first();
 
