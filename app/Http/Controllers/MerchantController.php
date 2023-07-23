@@ -117,8 +117,8 @@ class MerchantController extends Controller
     {
         $this->validate($request, [
             'identity' => 'required|min:16|max:16',
-            'phone' => 'required|min:9|max:15',
-            'photo' => 'image|mimes:jpg,jpeg,png,gif,bmp|max:150000',
+            // 'phone' => 'required|min:9|max:15',
+            // 'photo' => 'image|mimes:jpg,jpeg,png,gif,bmp|max:150000',
         ]);
 
         if($request->hasFile('photo')) {
