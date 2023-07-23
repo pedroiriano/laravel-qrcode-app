@@ -71,38 +71,31 @@ class RetributionController extends Controller
 
         $existingRetribution = Retribution::where('rent_id', $rentId)->first();
 
+        $start = Rent::where('id', $rentId)->value('start');
+        $start = Carbon::parse($start);
+        $end = Carbon::now();
+        $difference = $start->diffInDays($end);
+
+        $stallId = Rent::where('id', $rentId)->value('stall_id');
+        $stallTypeId = Stall::where('id', $stallId)->value('stall_type_id');
+        $retributionAmount = StallType::where('id', $stallTypeId)->value('retribution');
+        $dueAmount = $difference * $retributionAmount;
+
         if ($existingRetribution === null) {
-            $start = Rent::where('id', $rentId)->value('start');
-            $start = Carbon::parse($start);
-            $end = Carbon::parse($request->input('retribution_date'));
-            $difference = $start->diffInDays($end);
-
-            $stallId = Rent::where('id', $rentId)->value('stall_id');
-            $stallTypeId = Stall::where('id', $stallId)->value('stall_type_id');
-            $retributionAmount = StallType::where('id', $stallTypeId)->value('retribution');
-            $dueAmount = $difference * $retributionAmount;
-
             $retribution = new Retribution;
             $retribution->rent_id = $rentId;
             $retribution->pay_date = $request->input('retribution_date');
             $retribution->amount = $request->input('amount');
             $retribution->due_amount = $dueAmount - $request->input('amount');
         } else {
-            // Handle the case when the retribution record already exists for the given rent_id
-            $stallId = Rent::where('id', $rentId)->value('stall_id');
-            $stallTypeId = Stall::where('id', $stallId)->value('stall_type_id');
-            $retributionAmount = StallType::where('id', $stallTypeId)->value('retribution');
-
-            $latestPayDate = Carbon::parse($existingRetribution->pay_date);
-            $now = Carbon::now();
-            $difference = $latestPayDate->diffInDays($now);
-            $currentDueAmount = $existingRetribution->due_amount + ($difference * $retributionAmount);
+            $sumAmount = Retribution::where('rent_id', $rentId)->sum('amount');
+            $currentDueAmount = $dueAmount - ($sumAmount + $request->input('amount'));
 
             $retribution = new Retribution;
             $retribution->rent_id = $rentId;
             $retribution->pay_date = $request->input('retribution_date');
             $retribution->amount = $request->input('amount');
-            $retribution->due_amount = $currentDueAmount - $request->input('amount');
+            $retribution->due_amount = $currentDueAmount;
         }
 
         $retribution->save();
@@ -114,7 +107,8 @@ class RetributionController extends Controller
     {
         $rentId = $request->input('rent_id');
 
-        $ret = Retribution::where('rent_id', $rentId)->latest('pay_date')->first();
+        $existingRetribution = Retribution::where('rent_id', $rentId)->first();
+        $sumAmount = Retribution::where('rent_id', $rentId)->sum('amount');
 
         $start = Rent::where('id', $rentId)->first()->start;
         $start = Carbon::parse($start);
@@ -126,10 +120,8 @@ class RetributionController extends Controller
         $retribution = StallType::where('id', $stall_type_id)->first()->retribution;
         $due = $difference * $retribution;
 
-        if ($ret) {
-            $latest_date = Carbon::parse($ret->pay_date);
-            $current_difference = $latest_date->diffInDays($end);
-            $current_due = $ret->due_amount + ($current_difference * $retribution);
+        if ($existingRetribution) {
+            $current_due = $due - $sumAmount;
             return response()->json(['due_amount' => $current_due, 'daily_retibution' => $retribution]);
         } else {
             return response()->json(['due_amount' => $due, 'daily_retibution' => $retribution]);
