@@ -44,6 +44,7 @@
                 <thead>
                     <tr>
                         <th class="text-center">ID</th>
+                        <th class="text-center">Tanggal</th>
                         <th class="text-center">Pedagang</th>
                         <th class="text-center">Lokasi</th>
                         <th class="text-center">Retribusi</th>
@@ -55,6 +56,7 @@
                 <tfoot>
                     <tr>
                         <th class="text-center">ID</th>
+                        <th class="text-center">Tanggal</th>
                         <th class="text-center">Pedagang</th>
                         <th class="text-center">Lokasi</th>
                         <th class="text-center">Retribusi</th>
@@ -69,6 +71,7 @@
                             @foreach ($rets as $ret)
                                 <tr>
                                     <td>{{ $ret->id }}</td>
+                                    <td>{{ $ret->pay_date }}</td>
                                     <td>{{ $ret->merchant_name }}</td>
                                     <td>{{ $ret->location }}</td>
                                     <td>{{ $ret->retribution }}</td>
@@ -95,7 +98,7 @@
                             @endforeach
                         @else
                         <tr>
-                            <td colspan="7" class="text-center">Data Masih Kosong</td>
+                            <td colspan="8" class="text-center">Data Masih Kosong</td>
                         </tr>
                         @endif
                     @else

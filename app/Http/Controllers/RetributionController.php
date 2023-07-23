@@ -29,6 +29,7 @@ class RetributionController extends Controller
                 ->join('merchants', 'rents.merchant_id', '=', 'merchants.id')
                 ->leftJoin('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
                 ->select('retributions.*', 'rents.trade_type', 'rents.start', 'rents.status', 'stalls.stall_type_id', 'stalls.location', 'stalls.area as stall_area', 'merchants.identity as merchant_identity', 'merchants.name as merchant_name', 'merchants.phone as merchant_phone', 'stall_types.stall_type', 'stall_types.retribution')
+                ->orderBy('pay_date', 'desc')
                 ->get();
 
             return view('backend.retribution.index')->with('user', $user)->with('rets', $rets);
@@ -67,41 +68,50 @@ class RetributionController extends Controller
 
         $user = auth()->user();
 
-        $start = Rent::where('id', $request->input('rent'))->first()->start;
-        $start = Carbon::parse($start);
-        $end = Carbon::parse($request->input('retribution_date'));
-        $difference = $start->diffInDays($end);
+        if(Retribution::findOrFail($request->input('rent')) === NULL)
+        {
+            $start = Rent::where('id', $request->input('rent'))->first()->start;
+            $start = Carbon::parse($start);
+            $end = Carbon::parse($request->input('retribution_date'));
+            $difference = $start->diffInDays($end);
 
-        $stall_id = Rent::where('id', $request->input('rent'))->first()->stall_id;
-        $stall_type_id = Stall::where('id', $stall_id)->first()->stall_type_id;
-        $ret = StallType::where('id', $stall_type_id)->first()->retribution;
-        $due = $difference * $ret;
-        // dd($due);
-        $retribution = new Retribution;
-        $retribution->rent_id = $request->input('rent');
-        $retribution->pay_date = $request->input('retribution_date');
-        $retribution->amount = $request->input('amount');
-        $due_amount = $due - $request->input('amount');
-        $retribution->due_amount = $due_amount;
+            $stall_id = Rent::where('id', $request->input('rent'))->first()->stall_id;
+            $stall_type_id = Stall::where('id', $stall_id)->first()->stall_type_id;
+            $ret = StallType::where('id', $stall_type_id)->first()->retribution;
+            $due = $difference * $ret;
 
-        // if (($request->input('start') === NULL) or ($request->input('start') === 0))
-        // {
-        //     $retribution->pay_cost = 0;
-        //     $retribution->status = 'Tidak Aktif';
+            $retribution = new Retribution;
+            $retribution->rent_id = $request->input('rent');
+            $retribution->pay_date = $request->input('retribution_date');
+            $retribution->amount = $request->input('amount');
+            $due_amount = $due - $request->input('amount');
+            $retribution->due_amount = $due_amount;
+        }
+        else
+        {
+            // $start = Rent::where('id', $request->input('rent'))->first()->start;
+            // $start = Carbon::parse($start);
+            // $end = Carbon::parse($request->input('retribution_date'));
+            // $difference = $start->diffInDays($end);
 
-        //     $stall = Stall::findOrFail($request->input('stall'));
-        //     $stall->occupy = 'Tidak';
-        //     $stall->save();
-        // }
-        // else
-        // {
-        //     $retribution->pay_cost = $cost;
-        //     $retribution->status = 'Aktif';
+            $stall_id = Rent::where('id', $request->input('rent'))->first()->stall_id;
+            $stall_type_id = Stall::where('id', $stall_id)->first()->stall_type_id;
+            $ret = StallType::where('id', $stall_type_id)->first()->retribution;
+            // $due = $difference * $ret;
 
-        //     $stall = Stall::findOrFail($request->input('stall'));
-        //     $stall->occupy = 'Ya';
-        //     $stall->save();
-        // }
+            $latest = Retribution::where('rent_id', $request->input('rent'))->latest('pay_date')->first();
+            $latest_pay = Carbon::parse($latest->pay_date);
+            $now = Carbon::now();
+            $difference = $latest_pay->diffInDays($now);
+            $current_due = $latest->due_amount + ($difference * $ret);
+            // dd($current_due);
+            $retribution = new Retribution;
+            $retribution->rent_id = $request->input('rent');
+            $retribution->pay_date = $request->input('retribution_date');
+            $retribution->amount = $request->input('amount');
+            $due_amount = $current_due - $request->input('amount');
+            $retribution->due_amount = $due_amount;
+        }
 
         $retribution->save();
 
@@ -112,13 +122,25 @@ class RetributionController extends Controller
     {
         $rentId = $request->input('rent_id');
 
-        $ret = Retribution::where('rent_id', $rentId)->latest('created_at')->first();
+        $ret = Retribution::where('rent_id', $rentId)->latest('pay_date')->first();
+
+        $start = Rent::where('id', $rentId)->first()->start;
+        $start = Carbon::parse($start);
+        $end = Carbon::now();
+        $difference = $start->diffInDays($end);
+
+        $stall_id = Rent::where('id', $rentId)->first()->stall_id;
+        $stall_type_id = Stall::where('id', $stall_id)->first()->stall_type_id;
+        $retribution = StallType::where('id', $stall_type_id)->first()->retribution;
+        $due = $difference * $retribution;
 
         if ($ret) {
-            $dueAmount = $ret->due_amount;
-            return response()->json(['due_amount' => $dueAmount]);
+            $latest_date = Carbon::parse($ret->pay_date);
+            $current_difference = $latest_date->diffInDays($end);
+            $current_due = $ret->due_amount + ($current_difference * $retribution);
+            return response()->json(['due_amount' => $current_due]);
         } else {
-            return response()->json(['due_amount' => 0]);
+            return response()->json(['due_amount' => $due]);
         }
     }
 }
