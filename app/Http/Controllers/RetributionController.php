@@ -103,6 +103,18 @@ class RetributionController extends Controller
         return redirect()->route('retribution')->with('success', 'Retribusi Berhasil Disimpan');
     }
 
+    public function destroy($id)
+    {
+        try {
+            $ret = Retribution::findOrFail($id);
+            $ret->delete();
+
+            return redirect()->route('retribution')->with('success', 'Retribusi Berhasil Dihapus');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Maaf Data Tidak Sesuai');
+        }
+    }
+
     public function getDueAmount(Request $request)
     {
         $rentId = $request->input('rent_id');
