@@ -89,13 +89,19 @@ class RetributionController extends Controller
             $retribution->due_amount = $dueAmount - $request->input('amount');
         } else {
             $sumAmount = Retribution::where('rent_id', $rentId)->sum('amount');
+            $sumDiff = $dueAmount - $sumAmount;
             $currentDueAmount = $dueAmount - ($sumAmount + $request->input('amount'));
 
-            $retribution = new Retribution;
-            $retribution->rent_id = $rentId;
-            $retribution->pay_date = $request->input('retribution_date');
-            $retribution->amount = $request->input('amount');
-            $retribution->due_amount = $currentDueAmount;
+            if($sumDiff == 0) {
+                return back()->with('status', 'Retribusi Telah Lunas');
+            }
+            else {
+                $retribution = new Retribution;
+                $retribution->rent_id = $rentId;
+                $retribution->pay_date = $request->input('retribution_date');
+                $retribution->amount = $request->input('amount');
+                $retribution->due_amount = $currentDueAmount;
+            }
         }
 
         $retribution->save();
