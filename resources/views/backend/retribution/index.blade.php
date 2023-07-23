@@ -83,11 +83,11 @@
                                                 <i data-feather="eye"></i>
                                             </a>
                                         </button>
-                                        <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
+                                        {{-- <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2">
                                             <a class="text-decoration-none text-muted" href="/retribution/{{ $ret->id }}/edit">
                                                 <i data-feather="edit"></i>
                                             </a>
-                                        </button>
+                                        </button> --}}
                                         <button class="btn btn-datatable btn-icon btn-transparent-dark ms-2 me-2 delete-retribution" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('retribution-delete', $ret->id) }}">
                                             <a class="text-decoration-none text-muted">
                                                 <i data-feather="trash-2"></i>
