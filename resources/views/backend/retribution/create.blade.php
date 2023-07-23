@@ -28,7 +28,7 @@
     </div>
 </header>
 <!-- Main page content-->
-<form action="{{ route('retribution-store') }}" method="POST" enctype="multipart/form-data">
+<form id="retributionForm" action="{{ route('retribution-store') }}" method="POST" enctype="multipart/form-data">
 @csrf
 <div class="container-fluid px-4">
     @include('inc.alert-message')
@@ -47,13 +47,19 @@
             <div class="card mb-4">
                 <div class="card-header">Jumlah Hutang</div>
                 <div class="card-body">
-                    <input class="form-control" id="due_amount" name="due_amount" type="number" placeholder="Jumlah Hutang dalam Rupiah" disabled />
+                    <input class="form-control" id="due_amount" name="due_amount" type="text" placeholder="Jumlah Hutang dalam Rupiah" disabled />
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Retribusi Harian</div>
+                <div class="card-body">
+                    <input class="form-control" id="daily_retibution" name="daily_retibution" type="text" placeholder="Jumlah Retribusi Harian dalam Rupiah" disabled />
                 </div>
             </div>
             <div class="card mb-4">
                 <div class="card-header">Jumlah Retribusi</div>
                 <div class="card-body">
-                    <input class="form-control" id="amount" name="amount" type="number" placeholder="Masukkan Retribusi dalam Rupiah (contoh: 4500)" />
+                    <input class="form-control" id="amount" name="amount" type="number" placeholder="Masukkan Retribusi dalam Rupiah (contoh: 4500)" required />
                 </div>
             </div>
             <div class="card mb-4">
@@ -61,7 +67,7 @@
                 <div class="card-body">
                     <div class="input-group input-group-joined">
                         <span class="input-group-text"><i data-feather="calendar"></i></span>
-                        <input class="form-control pointer" id="datepicker" name="retribution_date" placeholder="Pilih Tanggal" />
+                        <input class="form-control pointer" id="datepicker" name="retribution_date" placeholder="Pilih Tanggal" required />
                     </div>
                 </div>
             </div>
@@ -102,7 +108,10 @@ $("#rent").change(function() {
         type: "POST",
         data: { rent_id: rentId },
         success: function(response) {
-            $('#due_amount').val(response.due_amount);
+            var formattedDueAmount = formatToRupiah(response.due_amount);
+            var formattedDailyRetibution = formatToRupiah(response.daily_retibution);
+            $('#due_amount').val(formattedDueAmount);
+            $('#daily_retibution').val(formattedDailyRetibution);
         },
         error: function(xhr, status, error) {
             console.error(error);
@@ -111,6 +120,10 @@ $("#rent").change(function() {
 });
 
 $("#rent").trigger("change");
+
+function formatToRupiah(number) {
+    return number.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+}
 </script>
 
 <script>
@@ -120,5 +133,22 @@ $("#rent").trigger("change");
             'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
         ],
     });
+</script>
+
+<script>
+function validateForm() {
+    var retributionDate = document.getElementById("datepicker").value;
+    if (retributionDate === "") {
+        alert("Tanggal Bayar Harus Diisi!");
+        return false;
+    }
+    return true;
+}
+
+document.getElementById("retributionForm").addEventListener("submit", function(event) {
+    if (!validateForm()) {
+        event.preventDefault();
+    }
+});
 </script>
 @endsection
