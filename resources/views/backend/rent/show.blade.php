@@ -172,7 +172,11 @@
             <div class="card">
                 <div class="card-header">Foto</div>
                 <div class="card-body text-center">
-                    <img class="mb-2" src="{{ asset('storage/photos/'.$ren->merchant_photo) }}" alt="Photo" style="max-width: 100%; height: auto;" />
+                    @if (!empty($ren->merchant_photo))
+                        <img class="mb-2" src="{{ asset('storage/photos/'.$ren->merchant_photo) }}" alt="Photo" style="max-width: 100%; height: auto;" />
+                    @else
+                        <img class="mb-2" src="{{ asset('images/illustrations/no-user.png') }}" alt="Photo" style="max-width: 100%; height: auto;" />
+                    @endif
                 </div>
             </div>
         </div>
