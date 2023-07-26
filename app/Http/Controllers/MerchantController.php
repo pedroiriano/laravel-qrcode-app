@@ -64,6 +64,7 @@ class MerchantController extends Controller
         }
         else {
             // return back()->with('error', 'Unggah Foto Gagal');
+            $photoNameSaved = NULL;
         }
 
         if ((DB::table('merchants')
