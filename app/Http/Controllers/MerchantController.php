@@ -45,9 +45,13 @@ class MerchantController extends Controller
     {
         $this->validate($request, [
             'identity' => 'required|min:16|max:16|unique:merchants',
-            'phone' => 'min:9|max:15|unique:merchants',
-            'photo' => 'image|mimes:jpg,jpeg,png,gif,bmp|max:250000',
         ]);
+
+        // $this->validate($request, [
+        //     'identity' => 'required|min:16|max:16|unique:merchants',
+        //     'phone' => 'min:9|max:15|unique:merchants',
+        //     'photo' => 'image|mimes:jpg,jpeg,png,gif,bmp|max:250000',
+        // ]);
 
         $user = auth()->user();
 
