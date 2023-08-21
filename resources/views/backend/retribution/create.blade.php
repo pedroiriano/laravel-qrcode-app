@@ -53,7 +53,7 @@
             <div class="card mb-4">
                 <div class="card-header">Retribusi Harian</div>
                 <div class="card-body">
-                    <input class="form-control" id="daily_retibution" name="daily_retibution" type="text" placeholder="Jumlah Retribusi Harian dalam Rupiah" disabled />
+                    <input class="form-control" id="daily_retribution" name="daily_retribution" type="text" placeholder="Jumlah Retribusi Harian dalam Rupiah" disabled />
                 </div>
             </div>
             <div class="card mb-4">
@@ -109,9 +109,9 @@ $("#rent").change(function() {
         data: { rent_id: rentId },
         success: function(response) {
             var formattedDueAmount = formatToRupiah(response.due_amount);
-            var formattedDailyRetibution = formatToRupiah(response.daily_retibution);
+            var formattedDailyRetribution = formatToRupiah(response.daily_retribution);
             $('#due_amount').val(formattedDueAmount);
-            $('#daily_retibution').val(formattedDailyRetibution);
+            $('#daily_retribution').val(formattedDailyRetribution);
         },
         error: function(xhr, status, error) {
             console.error(error);
