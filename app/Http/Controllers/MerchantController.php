@@ -45,9 +45,13 @@ class MerchantController extends Controller
     {
         $this->validate($request, [
             'identity' => 'required|min:16|max:16|unique:merchants',
-            'phone' => 'required|min:9|max:15|unique:merchants',
-            'photo' => 'image|mimes:jpg,jpeg,png,gif,bmp|max:150000',
         ]);
+
+        // $this->validate($request, [
+        //     'identity' => 'required|min:16|max:16|unique:merchants',
+        //     'phone' => 'min:9|max:15|unique:merchants',
+        //     'photo' => 'image|mimes:jpg,jpeg,png,gif,bmp|max:250000',
+        // ]);
 
         $user = auth()->user();
 
@@ -63,7 +67,8 @@ class MerchantController extends Controller
             $photoPath = $request->file('photo')->storeAs('public/photos', $photoNameSaved);
         }
         else {
-            return back()->with('error', 'Unggah Foto Gagal');
+            // return back()->with('error', 'Unggah Foto Gagal');
+            $photoNameSaved = NULL;
         }
 
         if ((DB::table('merchants')

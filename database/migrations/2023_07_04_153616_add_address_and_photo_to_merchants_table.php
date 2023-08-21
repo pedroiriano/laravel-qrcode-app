@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('merchants', function (Blueprint $table) {
             $table->longText('address')->after('name');
-            $table->string('photo')->after('phone');
+            $table->string('photo')->nullable()->after('phone');
         });
     }
 
