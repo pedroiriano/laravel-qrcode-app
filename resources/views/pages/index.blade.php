@@ -5,6 +5,35 @@
 @endsection
 
 @section('content')
+<header class="page-header-ui page-header-ui-light bg-img-cover" style="background-image: url({{ asset('images/illustrations/sidita-background.png') }})">
+    <div class="page-header-ui-content">
+        <div class="container px-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-xl-8 col-lg-10 text-center">
+                    @include('inc.alert-message')
+                    <h1 class="page-header-ui-title fw-bold text-white">
+                        <span style="background-color: rgba(128, 128, 128, 0.75); display: inline; border-radius: 10px; text-shadow: 2px 2px #000000">
+                            SIDITA
+                        </span>
+                    </h1>
+                    <p class="page-header-ui-text fw-bold mb-5 text-white">
+                        <span style="background-color: rgba(128, 128, 128, 0.75); display: inline; border-radius: 10px; text-shadow: 2px 2px #000000">
+                            Sistem Digital Data Pedagang
+                        </span>
+                    </p>
+                    <p class="page-header-ui-text fw-bold mb-5 text-white">
+                        <span style="background-color: rgba(128, 128, 128, 0.75); display: inline; border-radius: 10px; text-shadow: 2px 2px #000000">
+                            UPTD Pasar Kemirimuka Kota Depok
+                        </span>
+                    </p>
+                    @auth
+                    <a class="btn btn-teal fw-bold me-2" href="{{ route('backend') }}">Masuk Sistem</a>
+                    @endauth
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 <section id="commodity-price" class="bg-light py-10">
     <div class="container px-3">
         <h2 class="mb-4">Daftar Sewa Kios atau Los</h2>
