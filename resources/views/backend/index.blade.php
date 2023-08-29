@@ -34,7 +34,7 @@
                                 <p class="text-gray-700 mb-0">Sistem Digital Data Pedagang di UPTD Pasar Kemirimuka Kota Depok</p>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-xxl-12 text-center"><img class="img-fluid" src="{{ asset('images/illustrations/sidita-background.png') }}" style="max-width: 20rem" /></div>
+                        <div class="col-xl-4 col-xxl-12 text-center"><img class="img-fluid" src="{{ asset('images/illustrations/sidita-003.png') }}" style="max-width: 20rem" /></div>
                     </div>
                 </div>
             </div>
