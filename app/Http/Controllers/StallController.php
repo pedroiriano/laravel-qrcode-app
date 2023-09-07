@@ -123,7 +123,7 @@ class StallController extends Controller
                     ->join('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
                     ->leftJoin('rents', 'stalls.id', '=', 'rents.stall_id')
                     ->leftJoin('merchants', 'rents.merchant_id', '=', 'merchants.id')
-                    ->select('stalls.*', 'stall_types.id as stall_id', 'stall_types.stall_type', 'stall_types.area as stall_area', 'stall_types.retribution', 'rents.merchant_id', 'rents.trade_type', 'merchants.name as merchant_name')
+                    ->select('stalls.*', 'stall_types.id as stall_id', 'stall_types.stall_type', 'stall_types.area as stall_area', 'stall_types.retribution', 'rents.id as rent_id', 'rents.merchant_id', 'rents.trade_type', 'merchants.name as merchant_name')
                     ->where('stalls.id', $id)
                     ->first();
                 

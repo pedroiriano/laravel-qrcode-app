@@ -117,18 +117,26 @@
                                 @if ($con === 1)    
                                 <div class="row small text-muted fw-bold">
                                     <div class="col-6">
-                                    Pedagang
+                                        <a class="text-decoration-none text-muted" href="/merchant/{{ $sta->merchant_id }}">
+                                            Pedagang
+                                        </a>
                                     </div>
                                     <div class="col-6">
-                                        {{ $sta->merchant_name }}
+                                        <a class="text-decoration-none text-muted" href="/merchant/{{ $sta->merchant_id }}">
+                                            {{ $sta->merchant_name }}
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="row small text-muted fw-bold">
                                     <div class="col-6">
-                                    Jenis Jualan
+                                        <a class="text-decoration-none text-muted" href="/rent/{{ $sta->rent_id }}">
+                                            Jenis Jualan
+                                        </a>
                                     </div>
                                     <div class="col-6">
-                                        {{ $sta->trade_type }}
+                                        <a class="text-decoration-none text-muted" href="/rent/{{ $sta->rent_id }}">
+                                            {{ $sta->trade_type }}
+                                        </a>
                                     </div>
                                 </div>
                                 @endif
