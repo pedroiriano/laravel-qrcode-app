@@ -117,13 +117,29 @@ class StallController extends Controller
     public function show($id)
     {
         try {
-            $sta = DB::table('stalls')
-                ->join('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
-                ->select('stalls.*', 'stall_types.id as stall_id', 'stall_types.stall_type', 'stall_types.area as stall_area', 'stall_types.retribution')
-                ->where('stalls.id', $id)
-                ->first();
+            $occupy = Stall::where('id', $id)->where('occupy', 'Ya')->first();
+            if (!empty($occupy)) {
+                $sta = DB::table('stalls')
+                    ->join('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
+                    ->leftJoin('rents', 'stalls.id', '=', 'rents.stall_id')
+                    ->leftJoin('merchants', 'rents.merchant_id', '=', 'merchants.id')
+                    ->select('stalls.*', 'stall_types.id as stall_id', 'stall_types.stall_type', 'stall_types.area as stall_area', 'stall_types.retribution', 'rents.merchant_id', 'rents.trade_type', 'merchants.name as merchant_name')
+                    ->where('stalls.id', $id)
+                    ->first();
+                
+                $con = 1;
+            }
+            else {
+                $sta = DB::table('stalls')
+                    ->join('stall_types', 'stalls.stall_type_id', '=', 'stall_types.id')
+                    ->select('stalls.*', 'stall_types.id as stall_id', 'stall_types.stall_type', 'stall_types.area as stall_area', 'stall_types.retribution')
+                    ->where('stalls.id', $id)
+                    ->first();
+                
+                $con = 0;
+            }
 
-            return view('backend.stall.show')->with('sta', $sta);
+            return view('backend.stall.show')->with('sta', $sta)->with('con', $con);
         } catch (\Exception $e) {
             return back()->with('error', 'Maaf Data Tidak Sesuai');
         }

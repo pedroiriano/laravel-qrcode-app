@@ -114,6 +114,24 @@
                                         {{ $sta->occupy }}
                                     </div>
                                 </div>
+                                @if ($con === 1)    
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                    Pedagang
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $sta->merchant_name }}
+                                    </div>
+                                </div>
+                                <div class="row small text-muted fw-bold">
+                                    <div class="col-6">
+                                    Jenis Jualan
+                                    </div>
+                                    <div class="col-6">
+                                        {{ $sta->trade_type }}
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
