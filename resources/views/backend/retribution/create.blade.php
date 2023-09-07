@@ -37,7 +37,7 @@
             <div class="card mb-4">
                 <div class="card-header">Tempat Sewa</div>
                 <div class="card-body">
-                    <select class="form-control" id="rent" name="rent">
+                    <select class="form-control js-example-basic-single" id="rent" name="rent">
                         @foreach ($rens as $ren_id => $ren)
                         <option value="{{ $ren_id }}">{{ $ren }}</option>
                         @endforeach
@@ -100,28 +100,70 @@ $.ajaxSetup({
     }
 });
 
-$("#rent").change(function() {
-    var rentId = $(this).val();
+// $(document).ready(function() {
+//     $("#rent").change(function() {
+//         var rentId = $(this).val();
 
-    $.ajax({
-        url: "{{ route('get-due-amount') }}",
-        type: "POST",
-        data: { rent_id: rentId },
-        success: function(response) {
-            var formattedDueAmount = formatToRupiah(response.due_amount);
-            var formattedDailyRetribution = formatToRupiah(response.daily_retribution);
-            $('#due_amount').val(formattedDueAmount);
-            $('#daily_retribution').val(formattedDailyRetribution);
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
-    });
+//         $.ajax({
+//             url: "{{ route('get-due-amount') }}",
+//             type: "POST",
+//             data: { rent_id: rentId },
+//             success: function(response) {
+//                 var formattedDueAmount = formatToRupiah(response.due_amount);
+//                 var formattedDailyRetribution = formatToRupiah(response.daily_retribution);
+//                 $('#due_amount').val(formattedDueAmount);
+//                 $('#daily_retribution').val(formattedDailyRetribution);
+//             },
+//             error: function(xhr, status, error) {
+//                 console.error(error);
+//             }
+//         });
+//     });
+
+//     $("#rent").trigger("change");
+// });
+
+// function formatToRupiah(number) {
+//     return number.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+// }
+// </script>
+
+<script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
 });
 
-$("#rent").trigger("change");
+$(document).ready(function() {
+    $("#rent").change(function() {
+        var rentId = $(this).val();
+
+        $.ajax({
+            url: "{{ route('get-due-amount') }}",
+            type: "POST",
+            data: { rent_id: rentId },
+            success: function(response) {
+                var formattedDueAmount = isNaN(response.due_amount) ? 'N/A' : formatToRupiah(response.due_amount);
+
+                var formattedDailyRetribution = isNaN(response.daily_retribution) ? 'N/A' : formatToRupiah(response.daily_retribution);
+
+                $('#due_amount').val(formattedDueAmount);
+                $('#daily_retribution').val(formattedDailyRetribution);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+    $("#rent").trigger("change");
+});
 
 function formatToRupiah(number) {
+    if (isNaN(number)) {
+        return 'N/A';
+    }
     return number.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
 }
 </script>
@@ -150,5 +192,11 @@ document.getElementById("retributionForm").addEventListener("submit", function(e
         event.preventDefault();
     }
 });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
 </script>
 @endsection

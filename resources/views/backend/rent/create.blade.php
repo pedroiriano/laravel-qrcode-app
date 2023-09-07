@@ -37,7 +37,7 @@
             <div class="card mb-4">
                 <div class="card-header">Jenis Tempat</div>
                 <div class="card-body">
-                    <select class="form-control" id="stall" name="stall">
+                    <select class="form-control js-example-basic-single" id="stall" name="stall">
                         @foreach ($stas as $sta_id => $sta)
                         <option value="{{ $sta_id }}">{{ $sta }}</option>
                         @endforeach
@@ -47,7 +47,7 @@
             <div class="card mb-4">
                 <div class="card-header">Pedagang</div>
                 <div class="card-body">
-                    <select class="form-control" id="merchant" name="merchant">
+                    <select class="form-control js-example-basic-single" id="merchant" name="merchant">
                         @foreach ($mers as $mer_id => $mer)
                         <option value="{{ $mer_id }}">{{ $mer }}</option>
                         @endforeach
@@ -108,6 +108,12 @@
         css: [
             'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
         ],
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
     });
 </script>
 @endsection

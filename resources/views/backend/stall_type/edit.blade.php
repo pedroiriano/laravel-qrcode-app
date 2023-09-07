@@ -37,7 +37,7 @@
             <div class="card mb-4">
                 <div class="card-header">Jenis Tempat</div>
                 <div class="card-body">
-                    <select class="form-control" id="stall_type" name="stall_type">
+                    <select class="form-control js-example-basic-single" id="stall_type" name="stall_type">
                         <option value="Kios" {{ $sty->stall_type == 'Kios' ? 'selected' : '' }}>
                             Kios
                         </option>
@@ -50,7 +50,7 @@
             <div class="card mb-4">
                 <div class="card-header">Luas</div>
                 <div class="card-body">
-                    <select class="form-control" id="area" name="area">
+                    <select class="form-control js-example-basic-single" id="area" name="area">
                         <option value="n/a" {{ $sty->area == 'n/a' ? 'selected' : '' }}>
                             Pilih Luas
                         </option>
@@ -109,4 +109,10 @@ $("#stall_type").change(function() {
 $("#stall_type").trigger("change");
 </script>
 {{-- END::Triggered Form Section --}}
+
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+</script>
 @endsection

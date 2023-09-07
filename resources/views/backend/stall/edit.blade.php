@@ -37,7 +37,7 @@
             <div class="card mb-4">
                 <div class="card-header">Jenis Tempat</div>
                 <div class="card-body">
-                    <select class="form-control" id="stall" name="stall">
+                    <select class="form-control js-example-basic-single" id="stall" name="stall">
                         @foreach ($stys as $sty_id => $sty)
                         <option value="{{ $sty_id }}" {{ $sty_id == $sta->stall_type_id ? 'selected' : '' }}>{{ $sty }}</option>
                         @endforeach
@@ -73,4 +73,12 @@
     </div>
 </div>
 </form>
+@endsection
+
+@section('js')
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+</script>
 @endsection

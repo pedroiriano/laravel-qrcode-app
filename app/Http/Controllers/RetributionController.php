@@ -140,9 +140,9 @@ class RetributionController extends Controller
 
         if ($existingRetribution) {
             $current_due = $due - $sumAmount;
-            return response()->json(['due_amount' => $current_due, 'daily_retibution' => $retribution]);
+            return response()->json(['due_amount' => $current_due, 'daily_retribution' => $retribution]);
         } else {
-            return response()->json(['due_amount' => $due, 'daily_retibution' => $retribution]);
+            return response()->json(['due_amount' => $due, 'daily_retribution' => $retribution]);
         }
     }
 }
