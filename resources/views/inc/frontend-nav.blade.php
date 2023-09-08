@@ -20,7 +20,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <h6 class="dropdown-header text-primary">Buku Penggunaan</h6>
-                                            <a class="dropdown-item" href="/" target="_blank">{{ asset('download/book.pdf') }}</a>
+                                            <a class="dropdown-item" href="{{ asset('download/book.pdf') }}" target="_blank">Unduh</a>
                                         <div class="dropdown-divider border-0 d-lg-none"></div>
                                     </div>
                                 </div>
